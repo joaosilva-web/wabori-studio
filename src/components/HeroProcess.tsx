@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
 import { content, pad2, sectionPath } from '../content'
 import { MOBILE, REDUCED_MOTION, useReducedMotion } from '../hooks/useMediaQuery'
 import { scrollYForProgress, useScrollProgress } from '../hooks/useScrollProgress'
@@ -254,10 +254,24 @@ export function HeroProcess() {
         <h1 id="capa-titulo" className={styles.title}>
           <span className="sr-only">{t.titleLabel}</span>
           {t.title.map((line, i) => (
-            <span key={line} className={styles.line} aria-hidden="true">
-              <span className={styles.tx} style={{ '--i': i } as CSSProperties}>
-                {line}
-              </span>
+            <span key={i} className={styles.line} aria-hidden="true">
+              {line.map((f, j) => (
+                <Fragment key={f.text}>
+                  {j > 0 && f.from !== 'stamp' && ' '}
+                  {/* cada fragmento na sua máscara; o ponto (carimbo) fica fora, para o anel crescer */}
+                  <span className={f.from === 'stamp' ? undefined : styles.mask}>
+                    <span className={styles.frag} data-from={f.from}>
+                      {f.from === 'right'
+                        ? [...f.text].map((ch, k) => (
+                            <span key={k} className={styles.ch} style={{ '--k': k } as CSSProperties}>
+                              {ch}
+                            </span>
+                          ))
+                        : f.text}
+                    </span>
+                  </span>
+                </Fragment>
+              ))}
             </span>
           ))}
         </h1>

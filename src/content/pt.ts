@@ -3,6 +3,7 @@
 // Voz: firme e sem arrogância. Frases curtas, sem ponto de exclamação, sem gíria de estúdio.
 
 import type { SectionId } from './sections'
+import type { TitleFragment } from './types'
 
 type NavSection = Exclude<SectionId, 'atelie' | 'iniciar'>
 
@@ -85,7 +86,21 @@ export const pt = {
       /** Etiqueta no topo da cena (não é um projeto de cliente: só o processo). */
       label: 'Processo',
       titleLabel: 'O corpo inteiro como composição.',
-      title: ['O corpo inteiro', 'como composição.'],
+      /**
+       * O título se monta: cada fragmento chega de um lugar (from) e sai pelo mesmo lado.
+       * left · below · above · right (letra por letra) · stamp (o ponto, carimbo em shu).
+       */
+      title: [
+        [
+          { text: 'O corpo', from: 'left' },
+          { text: 'inteiro', from: 'below' },
+        ],
+        [
+          { text: 'como', from: 'above' },
+          { text: 'composição', from: 'right' },
+          { text: '.', from: 'stamp' },
+        ],
+      ] satisfies TitleFragment[][],
       /** Texto alternativo dos quadros (o vídeo é decorativo, os quadros carregam a descrição). */
       alt: {
         contorno: 'Costas e braços com a tatuagem japonesa só no contorno: carpa, guerreiro, ondas e folhas de bordo.',

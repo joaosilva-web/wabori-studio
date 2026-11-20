@@ -15,3 +15,6 @@ export type DeepPartial<T> = T extends (...args: never[]) => unknown
     : T extends object
       ? { [K in keyof T]?: DeepPartial<T[K]> }
       : T
+
+/** Fragmento do título da capa: o texto e de onde ele chega (e para onde sai). */
+export type TitleFragment = { text: string; from: 'left' | 'below' | 'above' | 'right' | 'stamp' }
