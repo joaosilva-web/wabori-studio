@@ -1,54 +1,165 @@
+/*
+ * Cena 1 — abertura. Símbolo de 120 px: o anel tem raio 53 e traço 8, então a borda interna
+ * fica em 49 px. A íris começa exatamente ali (o anel do símbolo vira o anel da íris)
+ * e abre até cobrir a tela: máscara radial guiada por --wb-iris (registrada para animar).
+ */
+@property --wb-iris {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
 .intro {
+  --wb-iris: 0px;
   position: fixed;
   inset: 0;
   z-index: 200;
   display: none;
   place-items: center;
-  background: var(--color-primary);
   color: var(--color-on-primary);
+  pointer-events: none;
 }
 
-:global(html.intro) .intro {
+/* o shu é um fundo com um furo no centro: o furo é a íris */
+.intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary);
+  -webkit-mask: radial-gradient(circle at 50% 50%, transparent var(--wb-iris), #000 calc(var(--wb-iris) + .5px));
+  mask: radial-gradient(circle at 50% 50%, transparent var(--wb-iris), #000 calc(var(--wb-iris) + .5px));
+}
+
+:global(html.intro) .intro,
+:global(html.intro-short) .intro {
   display: grid;
-  /* rede de segurança: se o JS nunca chegar, a cortina sobe sozinha */
-  animation: introOut .9s var(--ease-exit) 6s forwards;
+  pointer-events: auto;
+}
+
+/* rede de segurança: se o JS nunca chegar, a íris abre sozinha */
+:global(html.intro) .intro {
+  animation: irisFallback .9s var(--ease-ink) 6s forwards;
 }
 
 :global(html[data-intro='out']) .intro {
-  animation: introOut .9s var(--ease-exit) forwards;
+  animation: irisOpen .9s var(--ease-ink) forwards;
+}
+
+/* visitas seguintes: só a íris, 0,6 s */
+:global(html.intro-short) .intro {
+  animation: irisShort .6s var(--ease-ink) .05s forwards;
 }
 
 .symbol {
+  position: relative;
   width: 120px;
   height: 120px;
 }
 
+/* ---------- 1. sujibori: o contorno ---------- */
+.line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.1s var(--ease-ink) .15s forwards;
+}
+
+/* ---------- 2. bokashi: o preenchimento sobe; a linha entalhada por último ---------- */
+.fill {
+  clip-path: inset(100% 0 0 0);
+  animation: rise .6s var(--ease) 1.15s forwards;
+}
+
+.carve {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw .35s var(--ease-ink) 1.7s forwards;
+}
+
+/* ---------- 3. mikiri: o anel se fecha ---------- */
 .ring {
-  stroke-dasharray: 334;
-  stroke-dashoffset: 334;
-  animation: ringDraw 1.2s var(--ease-ink) .2s forwards;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 8;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw .8s var(--ease-ink) 1.6s forwards;
 }
 
-.wave {
+/* o anel da íris: aparece no lugar do anel do símbolo e cresce com o furo */
+.iris {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(2 * (var(--wb-iris) + 8px));
+  height: calc(2 * (var(--wb-iris) + 8px));
+  translate: -50% -50%;
+  border: 8px solid currentColor;
+  border-radius: 50%;
   opacity: 0;
-  animation: fadeIn .5s var(--ease) 1.25s forwards;
 }
 
-@keyframes ringDraw {
+:global(html[data-intro='out']) .iris,
+:global(html.intro-short) .iris {
+  opacity: 1;
+}
+
+:global(html[data-intro='out']) .symbol {
+  opacity: 0;
+  transition: opacity .2s var(--ease);
+}
+
+:global(html.intro-short) .symbol {
+  display: none;
+}
+
+@keyframes draw {
   to {
     stroke-dashoffset: 0;
   }
 }
 
-@keyframes fadeIn {
+@keyframes rise {
   to {
-    opacity: 1;
+    clip-path: inset(0 0 0 0);
   }
 }
 
-@keyframes introOut {
+@keyframes irisOpen {
+  from {
+    --wb-iris: 49px;
+  }
   to {
-    transform: translateY(-100%);
+    --wb-iris: 150vmax;
+    visibility: hidden;
+  }
+}
+
+/* nome próprio: trocar só o atraso da mesma animação a faria terminar na hora */
+@keyframes irisFallback {
+  from {
+    --wb-iris: 49px;
+  }
+  to {
+    --wb-iris: 150vmax;
+    visibility: hidden;
+  }
+}
+
+@keyframes irisShort {
+  from {
+    --wb-iris: 0px;
+  }
+  to {
+    --wb-iris: 150vmax;
     visibility: hidden;
   }
 }
