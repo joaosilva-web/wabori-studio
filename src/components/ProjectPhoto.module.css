@@ -1,0 +1,87 @@
+.figure {
+  min-width: 0;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-warm);
+  color: var(--color-text);
+}
+
+.frame > picture {
+  display: block;
+  height: 100%;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* a tatuagem nunca é cortada */
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.state {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.seal {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  color: var(--color-text);
+}
+
+/* cortina de papel: cobre a foto e sobe uma vez (scaleY, 900 ms). Só com JS. */
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--tone-bg);
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+:global(.js) .frame[data-curtain]::after {
+  transform: scaleY(1);
+}
+
+:global(.js) .frame[data-curtain][data-in]::after {
+  transform: scaleY(0);
+  transition: transform var(--dur-slow) var(--ease-enter);
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.counter {
+  color: var(--tone-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.js) .frame[data-curtain]::after {
+    transform: scaleY(0);
+  }
+}

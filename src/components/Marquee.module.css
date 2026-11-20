@@ -1,0 +1,28 @@
+.marquee {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  padding-block: .18em;
+  font: 900 clamp(2rem, 1rem + 4vw, 4.5rem) / 1.1 var(--font-display);
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: .45em;
+  padding-right: .45em;
+  white-space: nowrap;
+}
+
+.sep {
+  color: var(--color-on-primary);
+}

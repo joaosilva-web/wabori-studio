@@ -1,0 +1,42 @@
+.link {
+  --line: var(--tone-link, var(--tone-accent));
+  position: relative;
+  display: inline-flex;
+  gap: .5em;
+  padding-bottom: .25em;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(var(--line), var(--line)) left bottom / 100% 1.5px no-repeat;
+}
+
+/* alvo de toque de 44 px sem mexer no desenho */
+.link::before {
+  content: '';
+  position: absolute;
+  inset: 50% -4px auto;
+  height: 44px;
+  translate: 0 -50%;
+}
+
+.link:hover,
+.link:focus-visible {
+  animation: draw var(--dur-slow) var(--ease-ink);
+}
+
+@keyframes draw {
+  0% {
+    background-size: 100% 1.5px;
+    background-position: right bottom;
+  }
+  45% {
+    background-size: 0 1.5px;
+    background-position: right bottom;
+  }
+  46% {
+    background-position: left bottom;
+  }
+  100% {
+    background-size: 100% 1.5px;
+    background-position: left bottom;
+  }
+}

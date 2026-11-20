@@ -1,0 +1,95 @@
+.btn {
+  --btn-bg: var(--color-primary);
+  --btn-fg: var(--color-on-primary);
+  --btn-border: var(--color-primary);
+  --btn-wipe: var(--color-text);
+  --btn-fg-hover: var(--color-on-primary);
+  --btn-border-hover: var(--color-text);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7em;
+  min-height: 44px;
+  padding: 1em 1.6em;
+  border: 1.5px solid var(--btn-border);
+  border-radius: var(--radius-0);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font: 700 var(--text-sm) / 1 var(--font-body);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--dur) var(--ease-enter),
+    border-color var(--dur) var(--ease-enter);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-wipe);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur) var(--ease-enter);
+}
+
+.arrow {
+  display: inline-block;
+  transition: translate var(--dur) var(--ease-enter);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: var(--btn-fg-hover);
+  border-color: var(--btn-border-hover);
+}
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: scaleY(1);
+}
+.btn:hover .arrow,
+.btn:focus-visible .arrow {
+  translate: .4em 0;
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  cursor: progress;
+}
+.btn:disabled::before {
+  transform: scaleY(0);
+}
+
+/* secundário: contorno sumi, se enche de shu */
+.secondary {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-text);
+  --btn-border: var(--color-text);
+  --btn-wipe: var(--color-primary);
+  --btn-fg-hover: var(--color-on-primary);
+  --btn-border-hover: var(--color-primary);
+}
+
+/* sobre sumi: contorno washi, a tinta que sobe é washi */
+.primary.inverse {
+  --btn-border: var(--color-inverse-text);
+  --btn-wipe: var(--color-inverse-text);
+  --btn-fg-hover: var(--color-text);
+  --btn-border-hover: var(--color-inverse-text);
+}
+
+.secondary.inverse {
+  --btn-fg: var(--color-inverse-text);
+  --btn-border: var(--color-inverse-text);
+  --btn-wipe: var(--color-inverse-text);
+  --btn-fg-hover: var(--color-text);
+  --btn-border-hover: var(--color-inverse-text);
+}

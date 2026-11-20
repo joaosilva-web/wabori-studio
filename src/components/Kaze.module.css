@@ -1,0 +1,40 @@
+.kaze {
+  display: grid;
+  gap: 4px;
+  padding-block: 14px;
+  overflow: hidden;
+  background: var(--kaze-bg);
+}
+
+.sumi {
+  --kaze-bg: var(--color-inverse-bg);
+  --kaze-fg: var(--color-kaze);
+}
+
+.warm {
+  --kaze-bg: var(--color-warm);
+  --kaze-fg: var(--color-kaze-warm);
+}
+
+.bordered {
+  border-block: 1px solid var(--color-inverse-text);
+}
+
+.row {
+  height: 30px;
+  overflow: hidden;
+}
+
+.row svg {
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  fill: var(--kaze-fg);
+  will-change: transform;
+}
+
+/* a faixa do meio parada na metade, para o estático não parecer três cópias iguais */
+.row:nth-child(2) svg {
+  transform: translateX(-25%);
+}

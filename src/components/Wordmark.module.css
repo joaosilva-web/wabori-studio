@@ -1,0 +1,28 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: .03em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.word {
+  /* centraliza pela caixa alta, não pela caixa da linha */
+  text-box: trim-both cap alphabetic;
+}
+
+.symbol {
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.primary {
+  color: var(--tone-accent);
+}
+
+.inherit {
+  color: currentColor;
+}
