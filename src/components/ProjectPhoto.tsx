@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { content } from '../content'
 import type { ResponsiveImage } from '../lib/images'
 import { observeOnce } from '../lib/reveal'
@@ -26,6 +26,8 @@ type Props = {
   priority?: boolean
   /** Proporção. Padrão 4:5 (a do Instagram). */
   ratio?: '4/5' | '3/2' | '16/9'
+  /** Proporção abaixo de 760 px (padrão: a mesma). */
+  ratioMobile?: '4/5' | '3/2' | '16/9'
   className?: string
 }
 
@@ -47,6 +49,7 @@ export function ProjectPhoto({
   sizes,
   priority = false,
   ratio = '4/5',
+  ratioMobile,
   className,
 }: Props) {
   const frameRef = useRef<HTMLDivElement>(null)
@@ -65,7 +68,7 @@ export function ProjectPhoto({
         ref={frameRef}
         className={styles.frame}
         data-curtain={priority ? undefined : ''}
-        style={{ aspectRatio: ratio }}
+        style={{ '--ratio': ratio, '--ratio-m': ratioMobile ?? ratio } as CSSProperties}
       >
         {image ? (
           <Picture image={image} alt={alt} sizes={sizes} priority={priority} className={styles.img} />

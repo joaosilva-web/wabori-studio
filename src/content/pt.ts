@@ -2,7 +2,10 @@
 // Marcadores entre colchetes, como [A PREENCHER] e [FOTO: …], ainda precisam de conteúdo real.
 // Voz: firme e sem arrogância. Frases curtas, sem ponto de exclamação, sem gíria de estúdio.
 
+import type { SectionId } from './sections'
 import type { TitleLine } from './types'
+
+type NavSection = Exclude<SectionId, 'atelie' | 'iniciar'>
 
 const instagram = 'wabori.tattoo'
 
@@ -31,7 +34,7 @@ export const pt = {
       { section: 'projetos', label: 'Projetos' },
       { section: 'processo', label: 'Processo' },
       { section: 'sobre', label: 'Sobre' },
-    ],
+    ] as { section: NavSection; label: string }[],
     cta: 'Iniciar um projeto',
     openMenu: 'Abrir menu',
     closeMenu: 'Fechar menu',

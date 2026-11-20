@@ -63,7 +63,7 @@ export default function DevComponents() {
   const [files, setFiles] = useState<File[]>([])
 
   return (
-    <main>
+    <div>
       <section className="section" data-tone="light">
         <div className="container">
           <SectionMeta section="atelie" label="Componentes" aside="Só em desenvolvimento" />
@@ -229,6 +229,6 @@ export default function DevComponents() {
       <Kaze tone="warm" />
       <Marquee items={content.home.marquee.items} label={content.home.marquee.label} />
       <div style={{ height: '60vh' }} />
-    </main>
+    </div>
   )
 }

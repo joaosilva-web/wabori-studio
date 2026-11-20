@@ -1,0 +1,60 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  place-items: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+:global(html.intro) .intro {
+  display: grid;
+  /* rede de segurança: se o JS nunca chegar, a cortina sobe sozinha */
+  animation: introOut .9s var(--ease-exit) 6s forwards;
+}
+
+:global(html[data-intro='out']) .intro {
+  animation: introOut .9s var(--ease-exit) forwards;
+}
+
+.symbol {
+  width: 120px;
+  height: 120px;
+}
+
+.ring {
+  stroke-dasharray: 334;
+  stroke-dashoffset: 334;
+  animation: ringDraw 1.2s var(--ease-ink) .2s forwards;
+}
+
+.wave {
+  opacity: 0;
+  animation: fadeIn .5s var(--ease) 1.25s forwards;
+}
+
+@keyframes ringDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes introOut {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none !important;
+  }
+}

@@ -4,6 +4,7 @@
 
 .frame {
   position: relative;
+  aspect-ratio: var(--ratio, 4 / 5);
   overflow: hidden;
   background: var(--color-warm);
   color: var(--color-text);
@@ -83,5 +84,11 @@
 @media (prefers-reduced-motion: reduce) {
   :global(.js) .frame[data-curtain]::after {
     transform: scaleY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .frame {
+    aspect-ratio: var(--ratio-m, var(--ratio, 4 / 5));
   }
 }
