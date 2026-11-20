@@ -1,10 +1,13 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import { Layout } from './components/Layout'
+import { About } from './pages/About'
 import { Home } from './pages/Home'
 import { NotFound } from './pages/NotFound'
 import { Projects } from './pages/Projects'
+import { Process } from './pages/Process'
 import { ProjectStudy } from './pages/ProjectStudy'
+import { StartProject } from './pages/StartProject'
 
 // Só em desenvolvimento: o import some do build de produção
 const DevComponents = import.meta.env.DEV ? lazy(() => import('./pages/DevComponents')) : null
@@ -27,6 +30,9 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projetos" element={<Projects />} />
           <Route path="/projetos/:slug" element={<ProjectStudy />} />
+          <Route path="/processo" element={<Process />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/iniciar-projeto" element={<StartProject />} />
           {DevComponents && (
             <Route
               path="/dev/componentes"

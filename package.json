@@ -7,9 +7,9 @@
     "predev": "node scripts/images.mjs",
     "dev": "vite",
     "images": "node scripts/images.mjs",
-    "build": "node scripts/images.mjs && tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/images.mjs && npm run typecheck && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.api.json"
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -1,0 +1,87 @@
+.title {
+  margin-block: var(--space-6);
+  font-size: var(--text-hero);
+  line-height: 1;
+}
+
+.title span {
+  display: block;
+}
+
+.h2 {
+  font-size: var(--text-2xl);
+}
+
+.text {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  max-width: 62ch;
+  font-size: var(--text-lg);
+}
+
+.atelier {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-6);
+  align-items: start;
+  border-top: 1px solid var(--tone-line);
+  padding-top: var(--space-5);
+}
+
+.facts {
+  border-top: 1px solid var(--tone-line);
+}
+
+.facts > div {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.facts dt {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tone-muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.philosophy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.artist {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-6);
+  align-items: start;
+  margin-top: var(--space-6);
+}
+
+.portrait {
+  max-width: 560px;
+}
+
+.name {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+@media (max-width: 900px) {
+  .atelier,
+  .philosophy,
+  .artist {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}

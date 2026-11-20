@@ -292,7 +292,7 @@ export const pt = {
     philosophy: {
       heading: 'A filosofia',
       paragraphs: [
-        'O nome vem de 和彫り, wabori, a tatuagem japonesa tradicional. A linguagem é a do irezumi: o contorno, o fundo de vento e água, a borda que fecha a composição.',
+        'O nome vem de 和彫り, wabori, a tatuagem japonesa tradicional. A linguagem é a do irezumi, a tatuagem tradicional japonesa: o contorno, o fundo de vento e água, a borda que fecha a composição.',
         'O tebori, a técnica feita à mão, é a origem desse estilo. Ele é citado aqui por respeito. O Wabori trabalha com máquina elétrica.',
       ],
     },
@@ -303,7 +303,7 @@ export const pt = {
       photoAlt: '[A PREENCHER: descrição do retrato do artista]',
       paragraphs: [
         'Começou tatuando outros estilos. Com o tempo, o estudo da tatuagem japonesa tradicional tomou o lugar do resto, e hoje ele faz só esse estilo.',
-        'Não tem linhagem formal nem nome de horishi. O que sustenta o trabalho é o estudo contínuo e os projetos mostrados por inteiro, do esboço à pele cicatrizada.',
+        'Não tem linhagem formal nem nome de horishi, o nome de ofício que um mestre japonês dá ao aprendiz. O que sustenta o trabalho é o estudo contínuo e os projetos mostrados por inteiro, do esboço à pele cicatrizada.',
         '[A PREENCHER: anos de trabalho, formação e outros fatos verificáveis]',
       ],
     },

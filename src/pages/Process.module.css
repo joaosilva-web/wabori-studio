@@ -1,0 +1,138 @@
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: end;
+  margin-block: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-hero);
+  line-height: 1;
+}
+
+.title span {
+  display: block;
+}
+
+.lead {
+  max-width: 52ch;
+  font-size: var(--text-lg);
+  color: var(--tone-muted);
+}
+
+.h2 {
+  font-size: var(--text-2xl);
+  margin-block: var(--space-6) var(--space-5);
+}
+
+/* ---------- etapas ---------- */
+.steps {
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px solid var(--tone-line);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: baseline;
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--tone-line);
+}
+
+.num {
+  font: 900 var(--text-2xl) / 1 var(--font-display);
+  color: var(--tone-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-size: var(--text-xl);
+}
+
+.stepText {
+  max-width: 60ch;
+  font-size: var(--text-lg);
+}
+
+/* ---------- tempo ---------- */
+.durations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.duration {
+  display: grid;
+  gap: var(--space-2);
+  border-top: 2px solid var(--tone-line);
+  padding-top: var(--space-4);
+}
+
+.duration dd {
+  margin: 0;
+}
+
+.durationValue {
+  font: 900 var(--text-xl) / 1.2 var(--font-display);
+}
+
+.durationDetail {
+  color: var(--tone-muted);
+}
+
+/* ---------- cuidados ---------- */
+.care {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.care li {
+  border-top: 2px solid var(--tone-line);
+  padding-top: var(--space-4);
+}
+
+.careNum {
+  color: var(--tone-accent);
+}
+
+.careTitle {
+  font-size: var(--text-lg);
+  margin: .4em 0 .5em;
+}
+
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: 1fr;
+  }
+  .step {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+  .stepText {
+    grid-column: 2;
+  }
+  .durations,
+  .care {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .head {
+    margin-block: var(--space-5);
+  }
+  .step {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .stepText {
+    grid-column: auto;
+  }
+}
