@@ -1,12 +1,13 @@
 import { HeroProcess } from '../components/HeroProcess'
 import { Kaze } from '../components/Kaze'
+import { Manifesto } from '../components/Manifesto'
 import { Marquee } from '../components/Marquee'
 import { ProcessRail } from '../components/ProcessRail'
 import { ProjectList } from '../components/ProjectList'
 import { Reveal } from '../components/Reveal'
 import { SectionMeta } from '../components/SectionMeta'
 import { TextLink } from '../components/TextLink'
-import { content, pad2, sectionPath } from '../content'
+import { content, sectionPath } from '../content'
 import { getFeatured, toListItem } from '../lib/projects'
 import { usePageMeta } from '../lib/seo'
 import styles from './Home.module.css'
@@ -25,35 +26,15 @@ export function Home() {
       {/* 2. Kaze */}
       <Kaze />
 
-      {/* 3. Ideia central */}
-      <section className="section" data-tone="dark" aria-labelledby="ideia-titulo">
-        <div className="container">
-          <SectionMeta section="atelie" label={home.idea.label} aside={home.idea.aside} />
-          <div className={styles.idea}>
-            <Reveal>
-              <h2 id="ideia-titulo" className={styles.h2}>
-                {home.idea.title.map((l) => (
-                  <span key={l}>{l}</span>
-                ))}
-              </h2>
-            </Reveal>
-            <Reveal i={1}>
-              <p className={styles.ideaText}>{home.idea.paragraph}</p>
-            </Reveal>
-          </div>
-          <Reveal as="ul" stagger className={styles.pillars}>
-            {home.idea.pillars.map((p, i) => (
-              <li key={p.title} className={styles.pillar} data-rv="">
-                <span className={`lbl ${styles.pillarNum}`}>
-                  {pad2(i + 1)}
-                </span>
-                <h3 className={styles.pillarTitle}>{p.title}</h3>
-                <p>{p.text}</p>
-              </li>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      {/* 3. Manifesto: o texto se acende e o contorno se desenha */}
+      <Manifesto
+        section="atelie"
+        label={home.idea.label}
+        aside={home.idea.aside}
+        heading={home.idea.title.join(' ')}
+        text={home.idea.paragraph}
+        pillars={home.idea.pillars}
+      />
 
       {/* 4. Faixa em shu */}
       <Marquee items={home.marquee.items} label={home.marquee.label} />

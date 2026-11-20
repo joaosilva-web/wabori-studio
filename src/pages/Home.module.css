@@ -1,50 +1,9 @@
-/* ---------- ideia central ---------- */
-.idea {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--space-5);
-  align-items: start;
-  margin-block: var(--space-6);
-}
-
 .h2 {
   font-size: var(--text-2xl);
 }
 
 .h2 span {
   display: block;
-}
-
-.ideaText {
-  font-size: var(--text-lg);
-  max-width: 56ch;
-}
-
-.pillars {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
-}
-
-.pillar {
-  border-top: 2px solid var(--tone-line);
-  padding-top: var(--space-4);
-}
-
-.pillarNum {
-  color: var(--tone-muted);
-}
-
-.pillarTitle {
-  font-size: var(--text-xl);
-  margin: .4em 0 .5em;
-}
-
-.pillar p {
-  color: var(--tone-muted);
-  max-width: 36ch;
 }
 
 /* ---------- cabeçalho das seções de lista ---------- */
@@ -62,11 +21,4 @@
 }
 
 @media (max-width: 760px) {
-  .idea,
-  .pillars {
-    grid-template-columns: 1fr;
-  }
-  .idea {
-    margin-block: var(--space-5);
-  }
 }
