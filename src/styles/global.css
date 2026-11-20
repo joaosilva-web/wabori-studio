@@ -142,6 +142,11 @@ html.lenis.lenis-smooth [data-lenis-prevent] {
   outline-offset: 3px;
 }
 
+/* h1 recebe foco programático na troca de rota: sem contorno (não é um controle) */
+h1[tabindex='-1']:focus {
+  outline: none;
+}
+
 ::selection {
   background: var(--color-primary);
   color: var(--color-on-primary);
@@ -323,4 +328,33 @@ html.has-cursor:has(dialog[open]) * {
 }
 html:has(dialog[open]) .wb-cursor {
   display: none;
+}
+
+/* ---------- transição entre páginas (lib/pageTransition.ts) ----------
+ * Painel shu com o símbolo washi. Sobe de baixo (450 ms) e sai pelo topo (600 ms).
+ * Com View Transitions, a saída é a captura antiga (o painel) deslizando para cima. */
+.wb-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(100%);
+}
+
+html.wb-vt::view-transition-old(root),
+html.wb-vt::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: none;
+}
+html.wb-vt::view-transition-old(root) {
+  z-index: 1;
+  animation: wb-panel-out 600ms var(--ease-enter) forwards;
+}
+@keyframes wb-panel-out {
+  to {
+    transform: translateY(-100%);
+  }
 }

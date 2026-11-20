@@ -24,4 +24,6 @@ idle(() => {
   startSmoothScroll()
   // cursor customizado: só com mouse e sem movimento reduzido; o código nem baixa no toque
   if (window.matchMedia('(pointer: fine)').matches) import('./lib/cursor').then((m) => m.startCursor())
+  // transição entre páginas (o próprio módulo ignora movimento reduzido a cada clique)
+  import('./lib/pageTransition').then((m) => m.startPageTransitions())
 })
