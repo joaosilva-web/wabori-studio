@@ -16,7 +16,8 @@ type Props = {
   placeholder?: string
   /** Texto alternativo: área, motivo e estado. */
   alt: string
-  state: PhotoState
+  /** Etiqueta Fresca/Cicatrizada. Sem estado (ex.: esboço), sem etiqueta. */
+  state?: PhotoState
   framing?: PhotoFraming
   /** Posição na série (legenda "01 / 03"). */
   index?: number
@@ -77,7 +78,7 @@ export function ProjectPhoto({
             <span aria-hidden="true">{placeholder ?? ui.placeholderPhoto}</span>
           </div>
         )}
-        <Tag className={styles.state}>{ui.photoState[state]}</Tag>
+        {state && <Tag className={styles.state}>{ui.photoState[state]}</Tag>}
         <WaboriSymbol className={styles.seal} size={28} title={ui.sealLabel} />
       </div>
       {hasCaption && (

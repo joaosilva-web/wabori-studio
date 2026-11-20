@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/images.mjs",
     "dev": "vite",
     "images": "node scripts/images.mjs",
-    "build": "tsc --noEmit && node scripts/images.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/images.mjs && tsc --noEmit && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },

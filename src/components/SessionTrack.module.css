@@ -1,0 +1,106 @@
+.wrapper {
+  position: relative;
+  padding-block: var(--space-7);
+}
+
+.sticky {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow-x: clip;
+}
+
+.head {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.counter {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--tone-muted);
+}
+
+.rail {
+  list-style: none;
+  display: flex;
+  gap: var(--space-5);
+  padding: 0 max(var(--gutter), (100vw - var(--container-wide)) / 2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+}
+
+.item {
+  flex: none;
+  width: min(80vw, 420px);
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  scroll-snap-align: start;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.end {
+  flex: none;
+  width: 1px;
+}
+
+.num {
+  color: var(--tone-accent);
+}
+
+.date {
+  color: var(--tone-muted);
+}
+
+.note {
+  max-width: 40ch;
+  color: var(--tone-muted);
+}
+
+/* ---------- preso no scroll (desktop com movimento) ---------- */
+.wrapper[data-pinned] {
+  padding-block: 0;
+  height: calc(100svh - var(--header-h) + var(--travel, 0px));
+}
+
+.wrapper[data-pinned] .sticky {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+  justify-content: center;
+}
+
+.wrapper[data-pinned] .rail {
+  overflow-x: visible;
+  scroll-snap-type: none;
+  transform: translateX(calc(var(--p, 0) * -1 * var(--travel, 0px)));
+  will-change: transform;
+}
+
+.wrapper[data-pinned] .item {
+  width: min(28vw, 380px, (100svh - var(--header-h) - 260px) * .8);
+}
+
+/* a sessão ativa é marcada no número, nunca na foto (a foto não recebe efeito) */
+.wrapper[data-pinned] .item[data-active] .num {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: .5em;
+}
+
+/* tudo cabe: não prende */
+.wrapper[data-fits] {
+  height: auto;
+  padding-block: var(--space-7);
+}
+
+.wrapper[data-fits] .sticky {
+  position: static;
+  height: auto;
+}

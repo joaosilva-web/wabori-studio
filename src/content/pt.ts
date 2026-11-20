@@ -254,6 +254,7 @@ export const pt = {
     sessionCounter: (i: number, total: number) =>
       `Sessão ${String(i).padStart(2, '0')} / ${String(total).padStart(2, '0')}`,
     sessionCounterSr: (i: number, total: number) => `Sessão ${i} de ${total}`,
+    sessionLabel: (i: number) => `Sessão ${String(i).padStart(2, '0')}`,
     healed: 'O resultado cicatrizado',
     meaning: 'O significado dos elementos',
     facts: { area: 'Área', scale: 'Escala', sessions: 'Sessões', period: 'Período', status: 'Estado' },

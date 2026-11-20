@@ -5,3 +5,5 @@ dist
 .DS_Store
 *.tsbuildinfo
 lighthouse-tmp
+public/images/projects
+public/images/site
