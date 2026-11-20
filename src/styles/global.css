@@ -244,3 +244,76 @@ html.lenis.lenis-smooth [data-lenis-prevent] {
     translate: none;
   }
 }
+
+/* ---------- cursor customizado (lib/cursor.ts, só mouse e sem movimento reduzido) ----------
+ * O cursor do sistema some, menos em campos de texto. Um ponto shu de 8 px; sobre cartões,
+ * o anel do símbolo de 88 px com "Ver" em washi sobre shu; sobre links, 32 px. */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none;
+}
+html.has-cursor :is(input, textarea, select, [contenteditable='true']),
+html.has-cursor :is(input, textarea, [contenteditable='true']) * {
+  cursor: auto;
+}
+html.has-cursor :is(input[type='text'], input[type='email'], input[type='tel'], input[type='url'], input[type='search'], input:not([type]), textarea) {
+  cursor: text;
+}
+
+.wb-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity var(--dur-fast) var(--ease);
+  will-change: transform;
+}
+.wb-cursor.is-shown {
+  opacity: 1;
+}
+/* o anel washi (mikiri) dentro do disco shu, só nos estados grandes */
+.wb-cursor::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 3px solid var(--color-on-primary);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.wb-cursor__label {
+  font: 700 11px / 1 var(--font-body);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.wb-cursor:is([data-state='view'], [data-state='drag'])::before,
+.wb-cursor:is([data-state='view'], [data-state='drag']) .wb-cursor__label {
+  opacity: 1;
+}
+.wb-cursor[data-state='link'] {
+  background: transparent;
+  border: 3px solid var(--color-primary);
+}
+.wb-cursor.is-down .wb-cursor__label {
+  opacity: .7;
+}
+/* diálogo modal (top layer) por cima de tudo: volta o cursor do sistema */
+html.has-cursor:has(dialog[open]),
+html.has-cursor:has(dialog[open]) * {
+  cursor: auto;
+}
+html:has(dialog[open]) .wb-cursor {
+  display: none;
+}

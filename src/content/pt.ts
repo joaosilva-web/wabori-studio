@@ -68,6 +68,8 @@ export const pt = {
     optional: 'opcional',
     yes: 'Sim',
     no: 'Não',
+    /** Texto do cursor customizado (desktop com mouse). */
+    cursor: { view: 'Ver', drag: 'Arrastar' },
   },
 
   /* ---------------------------------------------------------------
@@ -144,6 +146,8 @@ export const pt = {
       aside: (n: number) => `${String(n).padStart(2, '0')} em destaque`,
       title: 'Composições inteiras, sessão por sessão.',
       all: 'Ver todos os projetos',
+      allCard: ['Ver todos', 'os projetos'],
+      galleryLabel: 'Projetos em destaque',
     },
     process: {
       label: 'Processo',

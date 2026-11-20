@@ -20,6 +20,8 @@ export const PHOTO_SIZES = {
   half: '(max-width: 760px) 100vw, 50vw',
   /** Prévia da lista de projetos. */
   preview: '240px',
+  /** Cartão da galeria horizontal da home (4:5, ~60 % da altura da tela). */
+  gallery: '(max-width: 760px) 78vw, 48vh',
   /** Trilho de sessões. */
   track: '(max-width: 760px) 80vw, 420px',
 } as const

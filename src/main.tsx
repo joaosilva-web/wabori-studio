@@ -20,4 +20,8 @@ else createRoot(root).render(app)
 
 // Depois da hidratação e fora do caminho da primeira pintura: rolagem suave (desktop).
 const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 200))
-idle(() => startSmoothScroll())
+idle(() => {
+  startSmoothScroll()
+  // cursor customizado: só com mouse e sem movimento reduzido; o código nem baixa no toque
+  if (window.matchMedia('(pointer: fine)').matches) import('./lib/cursor').then((m) => m.startCursor())
+})

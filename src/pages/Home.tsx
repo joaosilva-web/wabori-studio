@@ -1,14 +1,14 @@
+import { FeaturedGallery } from '../components/FeaturedGallery'
 import { HeroProcess } from '../components/HeroProcess'
 import { Kaze } from '../components/Kaze'
 import { Manifesto } from '../components/Manifesto'
 import { Marquee } from '../components/Marquee'
 import { ProcessRail } from '../components/ProcessRail'
-import { ProjectList } from '../components/ProjectList'
 import { Reveal } from '../components/Reveal'
 import { SectionMeta } from '../components/SectionMeta'
 import { TextLink } from '../components/TextLink'
 import { content, sectionPath } from '../content'
-import { getFeatured, toListItem } from '../lib/projects'
+import { getFeatured } from '../lib/projects'
 import { usePageMeta } from '../lib/seo'
 import styles from './Home.module.css'
 
@@ -16,7 +16,7 @@ const { home, process } = content
 
 export function Home() {
   usePageMeta(home.seo)
-  const featured = getFeatured(3).map(toListItem)
+  const featured = getFeatured(6)
 
   return (
     <>
@@ -39,23 +39,23 @@ export function Home() {
       {/* 4. Faixa em shu */}
       <Marquee items={home.marquee.items} label={home.marquee.label} />
 
-      {/* 5. Projetos em destaque */}
-      <section className="section" data-tone="light" aria-labelledby="destaques-titulo">
-        <div className="container-wide">
-          <SectionMeta section="projetos" label={home.featured.label} aside={home.featured.aside(featured.length)} />
-          <div className={styles.head}>
-            <Reveal>
+      {/* 5. Projetos em destaque: galeria horizontal presa */}
+      <FeaturedGallery
+        projects={featured}
+        head={
+          <>
+            <SectionMeta section="projetos" label={home.featured.label} aside={home.featured.aside(featured.length)} />
+            <div className={styles.head}>
               <h2 id="destaques-titulo" className={styles.h2}>
                 {home.featured.title}
               </h2>
-            </Reveal>
-            <TextLink href={sectionPath.projetos} arrow="→">
-              {home.featured.all}
-            </TextLink>
-          </div>
-          <ProjectList items={featured} />
-        </div>
-      </section>
+              <TextLink href={sectionPath.projetos} arrow="→">
+                {home.featured.all}
+              </TextLink>
+            </div>
+          </>
+        }
+      />
 
       {/* 6. Processo resumido */}
       <section className={`section ${styles.process}`} data-tone="light" aria-labelledby="processo-titulo">
