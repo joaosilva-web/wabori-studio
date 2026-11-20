@@ -330,7 +330,9 @@
 /* tamanho pela largura do cartão (≈ 1/7), com teto no --text-2xl:
    "os projetos" cabe numa linha e o texto não quebra palavra por palavra */
 .finalText {
-  font: 400 min(var(--text-2xl), calc(var(--final-w) / 7)) / 1.05 var(--font-display);
+  /* "os projetos" mede ~7,2 em na Dela: o tamanho sai da largura útil do cartão (sem o padding).
+     Maior que isso, o texto quebrava em 4 linhas, o cartão crescia e empurrava o trilho para cima */
+  font: 400 min(var(--text-2xl), calc((var(--final-w) - 2 * var(--space-4)) / 7.4)) / 1.05 var(--font-display);
 }
 
 .finalText span {
@@ -338,7 +340,7 @@
 }
 
 .finalArrow {
-  font: 400 min(var(--text-2xl), calc(var(--final-w) / 7)) / 1 var(--font-display);
+  font: 400 min(var(--text-2xl), calc((var(--final-w) - 2 * var(--space-4)) / 7.4)) / 1 var(--font-display);
   transition: translate var(--dur) var(--ease-enter);
 }
 
@@ -400,7 +402,8 @@
 .gallery[data-pinned] {
   /* número e foto também limitados pela altura: em telas baixas (ex.: 590 px) o "01" encostava
      no fio dos metadados e a foto na barra de progresso. Em telas comuns os valores não mudam. */
-  --num: clamp(4rem, min(14vw, 22svh, 100svh - 520px), 11rem);
+  /* Dela: algarismos mais altos que os da mincho; com 4rem de mínimo, o "01" cruzava o fio em telas baixas */
+  --num: clamp(3rem, min(11vw, 18svh, 100svh - 540px), 9rem);
   --photo-h: clamp(220px, min(46svh, 100svh - 330px), 520px);
   height: calc(100svh + var(--travel, 0px) * 1.596);
 }
@@ -437,7 +440,7 @@
  * da altura do palco, o bloco centralizado subia por cima dos metadados e o fio cortava o título.
  */
 .gallery[data-pinned] .openingTitle {
-  font-size: clamp(2.5rem, min(1rem + 6vw, 11svh), 7rem);
+  font-size: clamp(2.25rem, min(1rem + 4.4vw, 10svh), 5.5rem); /* revisto para a Dela, mais larga */
 }
 
 .gallery[data-pinned] .opening {

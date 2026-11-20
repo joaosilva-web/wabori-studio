@@ -102,7 +102,12 @@
   position: absolute;
   left: max(var(--gutter), (100% - var(--container-wide)) / 2);
   bottom: 18svh;
-  font-size: var(--text-hero);
+  /*
+   * Coluna estreita à esquerda do corpo: no vídeo, o corpo ocupa ~35–65% da largura.
+   * Cinco linhas curtas (a mais longa, "do contorno", mede 7,1 em na Dela): 4,2vw mantém o título
+   * fora do corpo; 10,5svh mantém as cinco linhas abaixo do rótulo "Processo" em telas baixas.
+   */
+  font-size: clamp(2.25rem, min(4.2vw, 10.5svh), 5.4rem);
   line-height: 1.05;
   color: var(--color-text);
 }
