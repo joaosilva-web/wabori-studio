@@ -1,0 +1,83 @@
+{
+  "example": true,
+  "featured": true,
+  "order": 3,
+  "title": "[EXEMPLO] Perna",
+  "area": "perna",
+  "scale": "Perna",
+  "status": "concluido",
+  "dates": {},
+  "summary": "[A PREENCHER] Uma linha sobre a composição.",
+  "description": [
+    "[A PREENCHER] Descrição do projeto: a composição, a área e como o desenho acompanha o corpo."
+  ],
+  "brought": [
+    "[A PREENCHER] A ideia que o cliente trouxe, as referências e o contexto."
+  ],
+  "sketch": {
+    "text": [
+      "[A PREENCHER] Como a composição foi desenhada para a anatomia."
+    ],
+    "photo": {
+      "placeholder": "[FOTO: esboço da composição, perna]",
+      "alt": "[A PREENCHER] Esboço da composição de perna",
+      "state": "fresca",
+      "framing": "area"
+    }
+  },
+  "meaning": [
+    {
+      "element": "[A PREENCHER] Elemento",
+      "text": "[A PREENCHER] O significado deste elemento na composição."
+    }
+  ],
+  "sessionLog": [
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 1.",
+      "photo": {
+        "placeholder": "[FOTO: perna, sessão 1]",
+        "alt": "[A PREENCHER] Perna, sessão 1, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 2.",
+      "photo": {
+        "placeholder": "[FOTO: perna, sessão 2]",
+        "alt": "[A PREENCHER] Perna, sessão 2, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 3.",
+      "photo": {
+        "placeholder": "[FOTO: perna, sessão 3]",
+        "alt": "[A PREENCHER] Perna, sessão 3, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    }
+  ],
+  "photos": [
+    {
+      "placeholder": "[FOTO: perna, corpo inteiro]",
+      "alt": "[A PREENCHER] Perna, corpo inteiro, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "corpo"
+    },
+    {
+      "placeholder": "[FOTO: perna, área completa]",
+      "alt": "[A PREENCHER] Perna, área completa, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "area"
+    },
+    {
+      "placeholder": "[FOTO: perna, detalhe]",
+      "alt": "[A PREENCHER] Perna, detalhe, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "detalhe"
+    }
+  ]
+}

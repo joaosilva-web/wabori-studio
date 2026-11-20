@@ -1,0 +1,83 @@
+{
+  "example": true,
+  "featured": true,
+  "order": 2,
+  "title": "[EXEMPLO] Braço fechado",
+  "area": "braco",
+  "scale": "Braço fechado",
+  "status": "andamento",
+  "dates": {},
+  "summary": "[A PREENCHER] Uma linha sobre a composição.",
+  "description": [
+    "[A PREENCHER] Descrição do projeto: a composição, a área e como o desenho acompanha o corpo."
+  ],
+  "brought": [
+    "[A PREENCHER] A ideia que o cliente trouxe, as referências e o contexto."
+  ],
+  "sketch": {
+    "text": [
+      "[A PREENCHER] Como a composição foi desenhada para a anatomia."
+    ],
+    "photo": {
+      "placeholder": "[FOTO: esboço da composição, braço fechado]",
+      "alt": "[A PREENCHER] Esboço da composição de braço fechado",
+      "state": "fresca",
+      "framing": "area"
+    }
+  },
+  "meaning": [
+    {
+      "element": "[A PREENCHER] Elemento",
+      "text": "[A PREENCHER] O significado deste elemento na composição."
+    }
+  ],
+  "sessionLog": [
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 1.",
+      "photo": {
+        "placeholder": "[FOTO: braço fechado, sessão 1]",
+        "alt": "[A PREENCHER] Braço fechado, sessão 1, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 2.",
+      "photo": {
+        "placeholder": "[FOTO: braço fechado, sessão 2]",
+        "alt": "[A PREENCHER] Braço fechado, sessão 2, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 3.",
+      "photo": {
+        "placeholder": "[FOTO: braço fechado, sessão 3]",
+        "alt": "[A PREENCHER] Braço fechado, sessão 3, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    }
+  ],
+  "photos": [
+    {
+      "placeholder": "[FOTO: braço fechado, corpo inteiro]",
+      "alt": "[A PREENCHER] Braço fechado, corpo inteiro, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "corpo"
+    },
+    {
+      "placeholder": "[FOTO: braço fechado, área completa]",
+      "alt": "[A PREENCHER] Braço fechado, área completa, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "area"
+    },
+    {
+      "placeholder": "[FOTO: braço fechado, detalhe]",
+      "alt": "[A PREENCHER] Braço fechado, detalhe, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "detalhe"
+    }
+  ]
+}

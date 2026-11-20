@@ -1,0 +1,83 @@
+{
+  "example": true,
+  "featured": true,
+  "order": 1,
+  "title": "[EXEMPLO] Costas completas",
+  "area": "costas",
+  "scale": "Costas completas",
+  "status": "concluido",
+  "dates": {},
+  "summary": "[A PREENCHER] Uma linha sobre a composição.",
+  "description": [
+    "[A PREENCHER] Descrição do projeto: a composição, a área e como o desenho acompanha o corpo."
+  ],
+  "brought": [
+    "[A PREENCHER] A ideia que o cliente trouxe, as referências e o contexto."
+  ],
+  "sketch": {
+    "text": [
+      "[A PREENCHER] Como a composição foi desenhada para a anatomia."
+    ],
+    "photo": {
+      "placeholder": "[FOTO: esboço da composição, costas completas]",
+      "alt": "[A PREENCHER] Esboço da composição de costas completas",
+      "state": "fresca",
+      "framing": "area"
+    }
+  },
+  "meaning": [
+    {
+      "element": "[A PREENCHER] Elemento",
+      "text": "[A PREENCHER] O significado deste elemento na composição."
+    }
+  ],
+  "sessionLog": [
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 1.",
+      "photo": {
+        "placeholder": "[FOTO: costas completas, sessão 1]",
+        "alt": "[A PREENCHER] Costas completas, sessão 1, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 2.",
+      "photo": {
+        "placeholder": "[FOTO: costas completas, sessão 2]",
+        "alt": "[A PREENCHER] Costas completas, sessão 2, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    },
+    {
+      "note": "[A PREENCHER] O que foi feito na sessão 3.",
+      "photo": {
+        "placeholder": "[FOTO: costas completas, sessão 3]",
+        "alt": "[A PREENCHER] Costas completas, sessão 3, fresca",
+        "state": "fresca",
+        "framing": "area"
+      }
+    }
+  ],
+  "photos": [
+    {
+      "placeholder": "[FOTO: costas completas, corpo inteiro]",
+      "alt": "[A PREENCHER] Costas completas, corpo inteiro, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "corpo"
+    },
+    {
+      "placeholder": "[FOTO: costas completas, área completa]",
+      "alt": "[A PREENCHER] Costas completas, área completa, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "area"
+    },
+    {
+      "placeholder": "[FOTO: costas completas, detalhe]",
+      "alt": "[A PREENCHER] Costas completas, detalhe, cicatrizada",
+      "state": "cicatrizada",
+      "framing": "detalhe"
+    }
+  ]
+}
