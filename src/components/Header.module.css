@@ -2,7 +2,7 @@
  * Header. Coreografia de entrada (t = 0 aqui = 150 ms antes do título da capa):
  *   0 ms fio · 150 símbolo · 350 WABORI (40 ms/letra) · 530 links (70 ms cada, número +120)
  *   · 530 botão Menu · 790 Iniciar um projeto.
- * --T = 1 na primeira visita, .6 nas seguintes. Só transform, opacity e clip-path:
+ * --T = 1 na primeira visita, .6 nas seguintes (html[data-visit], que nunca muda). Só transform, opacity e clip-path:
  * o header é clicável e focável desde o primeiro instante.
  */
 .header {
@@ -16,7 +16,8 @@
     translate 600ms var(--ease-enter);
 }
 
-:global(html.intro-short) .header {
+/* ritmo pela visita (fixo), nunca pela classe da abertura, que troca no meio da animação */
+:global(html[data-visit='return']) .header {
   --T: .6;
 }
 

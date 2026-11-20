@@ -20,6 +20,9 @@
       // Antes da pintura: liga as revelações (.js) e decide a abertura:
       // .intro (completa, primeira visita da sessão) · .intro-short (só a íris, 0,6 s) ·
       // .no-intro (movimento reduzido).
+      // data-visit (first | return) diz o ritmo das coreografias (--T) e NUNCA muda depois:
+      // as classes da abertura trocam quando ela termina, e trocar --T no meio de uma animação
+      // recalcula duração e atraso, o que faz o título e o header recomeçarem (animação dupla).
       ;(function () {
         var d = document.documentElement
         d.classList.add('js')
@@ -27,6 +30,7 @@
         try { seen = sessionStorage.getItem('wabori:intro') === '1' } catch (e) {}
         var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
         d.classList.add(reduced ? 'no-intro' : seen ? 'intro-short' : 'intro')
+        d.dataset.visit = seen ? 'return' : 'first'
       })()
     </script>
   </head>

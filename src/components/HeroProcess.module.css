@@ -107,7 +107,8 @@
   color: var(--color-text);
 }
 
-:global(html.intro-short) .title {
+/* ritmo pela visita (fixo), nunca pela classe da abertura, que troca no meio da animação */
+:global(html[data-visit='return']) .title {
   --T: .6;
 }
 
