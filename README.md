@@ -79,7 +79,7 @@ As regras completas estão na seção "(06) Movimento" do design system.
 | Cena | Onde | Arquivo |
 | --- | --- | --- |
 | 1. Abertura: o símbolo é tatuado (contorno, preenchimento, anel) e abre em íris | Entrada do site | `src/components/Intro.tsx` + script inline em `index.html` |
-| 2. Capa: o processo em vídeo, rodando de trás para frente com o scroll (500 vh) | Home | `src/components/HeroProcess.tsx`, `src/lib/heroFrames.ts`, `src/lib/videoScrub.ts` |
+| 2. Capa: o processo em vídeo, rodando de trás para frente com o scroll (500 vh), título que se monta e cartões de anotação | Home | `src/components/HeroProcess.tsx`, `src/components/HeroCards.tsx`, `src/lib/heroFrames.ts`, `src/lib/videoScrub.ts` |
 | 3. Kaze reativo: a amplitude da onda cresce com a velocidade | Entre seções | `src/components/Kaze.tsx` |
 | 4. Manifesto: palavras que se acendem, onda que se desenha, anel shu (250 vh) | Home e Sobre (160 vh) | `src/components/Manifesto.tsx` |
 | 5. Faixa em shu com inércia (duas linhas, `skewX` pela velocidade) | Home | `src/components/Marquee.tsx` |
@@ -92,6 +92,19 @@ As regras completas estão na seção "(06) Movimento" do design system.
 Base comum: `src/hooks/useScrollProgress.ts` (progresso 0 → 1 de toda seção presa, escrito em CSS
 variables), `src/lib/scrollVelocity.ts` (velocidade do scroll, um loop só) e `src/lib/smoothScroll.ts`
 (Lenis, só no desktop). Em `prefers-reduced-motion`, nada fica preso: conteúdo empilhado e estado final.
+
+### Coreografias da capa
+
+- **Título** (`HeroProcess.tsx`, fragmentos em `home.cover.title` no `pt.ts`): cada fragmento chega
+  de um lado (`from`: left, below, above, right, stamp) e sai pelo mesmo lado entre p 0,10 e 0,20.
+  O ponto final é um carimbo em shu.
+- **Header** (`Header.tsx`): entra 150 ms antes do título, peça por peça; some ao descer depois da
+  capa e volta ao subir (`subscribeScroll` em `lib/scrollVelocity.ts`).
+- **Cartões das etapas** (`HeroCards.tsx`): anotações com linha de chamada até o corpo. Os pontos
+  estão em `CALLOUT_POINTS` (`lib/heroFrames.ts`), em coordenadas do vídeo 1280×720. **Se o vídeo
+  mudar, recalibre esses pontos** abrindo os quadros 150, 100 e 20.
+
+Os tempos de tudo estão na seção "(06) Movimento" do design system.
 
 ### Vídeo da capa
 

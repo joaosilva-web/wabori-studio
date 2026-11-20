@@ -657,7 +657,7 @@ footer .big .mk{width:.8em;height:.8em;color:var(--washi)}
       <thead><tr><th>Cena</th><th>Onde</th><th>Altura presa</th><th>O que acontece</th><th>Movimento reduzido</th></tr></thead>
       <tbody>
         <tr><td>1. Abertura</td><td>Entrada do site</td><td>—</td><td>Sobre shu, o símbolo washi é tatuado: sujibori (contorno, 1,1 s), bokashi (preenchimento sobe, 0,6 s, linha entalhada por último), mikiri (anel, 0,8 s). O anel vira uma íris que revela o pôster da capa. Mínimo ~2,4 s, primeira visita da sessão; nas seguintes, só a íris (0,6 s).</td><td>Não aparece</td></tr>
-        <tr><td>2. Capa em vídeo</td><td>Home</td><td>500 vh · 350 vh no celular</td><td>O vídeo all-intra roda de trás para frente com o scroll: do contorno (quadro 189) à peça completa (quadro 0), com pausas de leitura, legendas em cartão washi e régua de cinco marcas. Economia de dados ou 2g: quatro quadros em crossfade.</td><td>Quadro final e legendas empilhadas</td></tr>
+        <tr><td>2. Capa em vídeo</td><td>Home</td><td>500 vh · 350 vh no celular</td><td>O vídeo all-intra roda de trás para frente com o scroll: do contorno (quadro 189) à peça completa (quadro 0), com pausas de leitura, cartões de anotação com linhas de chamada até o corpo e régua de cinco marcas. O título se monta e o header entra na mesma coreografia. Economia de dados ou 2g: quatro quadros em crossfade.</td><td>Quadro final e legendas empilhadas</td></tr>
         <tr><td>3. Kaze reativo</td><td>Entre seções</td><td>—</td><td>Além de acelerar e inverter, a amplitude da onda cresce com a velocidade e acalma quando a rolagem para (mesmo path, só os y mudam).</td><td>Parado</td></tr>
         <tr><td>4. Manifesto</td><td>Home (Sobre: versão curta)</td><td>250 vh · 160 vh no Sobre</td><td>Seção sumi: cada palavra passa de nezumi-claro a 25% para washi; a linha da onda se desenha enorme ao fundo; o anel shu se fecha e os pilares entram.</td><td>Texto aceso, onda e anel completos</td></tr>
         <tr><td>5. Faixa em shu</td><td>Home</td><td>—</td><td>Duas linhas em sentidos opostos; <code>skewX</code> até 8° pela velocidade do scroll.</td><td>Parada</td></tr>
@@ -669,6 +669,17 @@ footer .big .mk{width:.8em;height:.8em;color:var(--washi)}
       </tbody>
     </table>
     <p class="note">Abaixo de 760 px as cenas presas continuam, mais curtas (cerca de 60% da altura), sem cursor.</p>
+
+    <span class="label" style="margin-top:var(--space-6)">Coreografias da capa</span>
+    <p>Três peças da capa em vídeo seguem a mesma lógica: cada parte chega por um caminho e num tempo próprio. Tudo espera a abertura sair; nas visitas sem abertura, roda no load a 60% do tempo. Só <code>transform</code>, <code>opacity</code> e <code>clip-path</code> (CLS 0). Em movimento reduzido, estado final direto.</p>
+    <table>
+      <thead><tr><th>Peça</th><th>Linha do tempo (t = 0 quando a abertura sai)</th><th>Saída / depois</th></tr></thead>
+      <tbody>
+        <tr><td>Título que se monta</td><td>150 ms “O corpo” da esquerda numa máscara que abre · 330 “inteiro” sobe · 570 “como” desce · 710 “composição” desliza da direita, letra por letra (28 ms) · 1650 o ponto entra como carimbo em shu (scale 2,4 → 1) com um anel que se expande</td><td>Entre p 0,10 e 0,20, cada fragmento sai para o lado de onde veio (multiplicadores 1,4 · 0,8 · 1,1 · 1,6) e o ponto some por último, com escala. No celular, deslocamentos horizontais pela metade.</td></tr>
+        <tr><td>Header</td><td>0 fio se desenha · 150 símbolo traçado (anel e onda) · 350 WABORI desce letra por letra (40 ms) · 530 links da direita (70 ms), número 120 ms depois · 530 linhas do Menu crescem do centro · 790 “Iniciar um projeto” revelado pela tinta</td><td>Clicável e focável desde o início. Depois da capa some ao descer (450 ms) e volta ao subir (600 ms), lendo o loop do <code>scrollVelocity</code>; nunca com foco dentro nem com o menu aberto. Hover: número sobe 2 px, sublinhado shu se desenha.</td></tr>
+        <tr><td>Cartões das etapas</td><td>Depois da saída do anterior (300 ms): borda se desenha a partir do canto mais perto do corpo (600) · fundo washi sobe (+250) · odômetro rola até o número (+250) · rótulo letra por letra e texto palavra por palavra (+450) · linha de chamada até o corpo (+300, 700 ms) · círculo shu pulsando (+1000)</td><td>Enquanto ativo: barra do trecho, numeral gigante em contorno com paralaxe mais lenta, cartão subindo 24 px. Lugares alternados para não cobrir as costas. Chamada final: palavra por palavra, linha shu, botões. Celular: folha que sobe da base, sem linhas nem numeral.</td></tr>
+      </tbody>
+    </table>
 
     <span class="label" style="margin-top:var(--space-6)">Efeitos de apoio</span>
     <table>
