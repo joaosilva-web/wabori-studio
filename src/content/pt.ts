@@ -91,15 +91,12 @@ export const pt = {
        * O título se monta: cada fragmento chega de um lugar (from) e sai pelo mesmo lado.
        * left · below · above · right (letra por letra) · stamp (o ponto, carimbo em shu).
        */
+      // uma ideia por linha: a Dela é larga, e linhas longas cobriam o corpo no vídeo
       title: [
-        [
-          { text: 'Tatuagem', from: 'left' },
-          { text: 'japonesa,', from: 'below' },
-        ],
-        [
-          { text: 'do contorno', from: 'above' },
-          { text: 'ao corpo', from: 'left' },
-        ],
+        [{ text: 'Tatuagem', from: 'left' }],
+        [{ text: 'japonesa,', from: 'below' }],
+        [{ text: 'do contorno', from: 'above' }],
+        [{ text: 'ao corpo', from: 'left' }],
         [
           { text: 'inteiro', from: 'right' },
           { text: '.', from: 'stamp' },
