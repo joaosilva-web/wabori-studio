@@ -1,11 +1,13 @@
 /*
- * Cena 7 — galeria horizontal. --p (0 → 1) e --travel (px) vêm do JS no .sticky.
- * Presa só em tela larga sem movimento reduzido; senão, carrossel nativo com scroll-snap.
+ * Cena 7 — galeria horizontal. --p (0 → 1), --travel e --scroll-per-px vêm do JS no .gallery.
+ * A altura é 100svh + viagem × fator (1,5 px de scroll por 1 px de deslocamento dos cartões).
+ * [data-static]: cartões quase cabem na tela, sem prender; carrossel nativo com scroll-snap.
+ * Celular e movimento reduzido: igual ao data-static.
  */
 .gallery {
-  --card-h: min(56svh, 620px);
+  --card-h: clamp(240px, min(56svh, 100svh - var(--header-h) - 340px), 620px);
   position: relative;
-  height: 300vh;
+  height: calc(100svh + var(--travel, 0px) * var(--scroll-per-px, 1.5));
 }
 
 .sticky {
@@ -100,6 +102,30 @@
 .all:hover .allArrow,
 .all:focus-visible .allArrow {
   translate: .3em 0;
+}
+
+/* ---------- poucos cartões: quase cabem sem prender ---------- */
+.gallery[data-static] {
+  height: auto;
+}
+
+.gallery[data-static] .sticky {
+  position: relative;
+  height: auto;
+  overflow: visible;
+  padding-block: var(--space-6);
+}
+
+.gallery[data-static] .track {
+  transform: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.gallery[data-static] .item {
+  scroll-snap-align: start;
 }
 
 /* ---------- celular e movimento reduzido: carrossel com scroll-snap ---------- */
