@@ -7,3 +7,4 @@ dist
 lighthouse-tmp
 public/images/projects
 public/images/site
+dist-ssr

@@ -44,15 +44,36 @@ function withImage(slug: string, photo: ProjectPhotoData | undefined): ProjectPh
   return { ...photo, image }
 }
 
-function build(): Project[] {
-  const raw = loadRaw()
-  const list = Object.entries(raw).map(([slug, data]) => {
+/**
+ * Valida com zod no build (pré-render) e em desenvolvimento — um JSON errado para tudo ali.
+ * No navegador em produção os dados já foram validados no build: só aplica os padrões,
+ * e o zod nem entra no pacote (o ramo some na compilação).
+ */
+function parse(slug: string, data: unknown): ProjectData {
+  if (import.meta.env.SSR || import.meta.env.DEV) {
     const parsed = projectSchema.safeParse(data)
     if (!parsed.success) {
       const issues = parsed.error.issues.map((i) => `  - ${i.path.join('.') || '(raiz)'}: ${i.message}`).join('\n')
       throw new Error(`Projeto "${slug}" inválido (content/projects/${slug}/projeto.json):\n${issues}`)
     }
-    const p = parsed.data
+    return parsed.data
+  }
+  const d = data as ProjectData
+  return {
+    ...d,
+    example: d.example ?? false,
+    featured: d.featured ?? false,
+    dates: d.dates ?? {},
+    sketch: { ...d.sketch, text: d.sketch?.text ?? [] },
+    meaning: d.meaning ?? [],
+    sessionLog: d.sessionLog ?? [],
+  }
+}
+
+function build(): Project[] {
+  const raw = loadRaw()
+  const list = Object.entries(raw).map(([slug, data]) => {
+    const p = parse(slug, data)
     return {
       ...p,
       slug,
