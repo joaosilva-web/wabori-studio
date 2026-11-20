@@ -16,7 +16,8 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const OUT = join(ROOT, 'public/images')
 const MANIFEST = join(ROOT, 'src/lib/imageManifest.json')
 const WIDTHS = [480, 800, 1200, 1600, 2000]
-const EXT = /\.(jpe?g|png|webp|avif|tiff?|heic)$/i
+// HEIC fica de fora: o sharp pré-compilado não decodifica (exporte como JPG)
+const EXT = /\.(jpe?g|png|webp|avif|tiff?)$/i
 
 /** [pasta de origem, prefixo da chave, pasta de saída] */
 async function sources() {
