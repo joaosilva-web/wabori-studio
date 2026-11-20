@@ -63,12 +63,6 @@
   margin-block: var(--space-8) var(--space-10);
 }
 
-.openingLabel {
-  color: var(--color-primary);
-  display: block;
-  margin-bottom: var(--space-2);
-}
-
 .openingTitle {
   font: 900 clamp(2.5rem, 1rem + 6vw, 7rem) / 1.05 var(--font-display);
   letter-spacing: -0.02em;
@@ -404,8 +398,10 @@
  * Desktop: seção presa + trilho horizontal
  * ================================================================ */
 .gallery[data-pinned] {
-  --num: clamp(5rem, min(14vw, 22svh), 11rem);
-  --photo-h: clamp(260px, 46svh, 520px);
+  /* número e foto também limitados pela altura: em telas baixas (ex.: 590 px) o "01" encostava
+     no fio dos metadados e a foto na barra de progresso. Em telas comuns os valores não mudam. */
+  --num: clamp(4rem, min(14vw, 22svh, 100svh - 520px), 11rem);
+  --photo-h: clamp(220px, min(46svh, 100svh - 330px), 520px);
   height: calc(100svh + var(--travel, 0px) * 1.596);
 }
 
@@ -433,6 +429,15 @@
   padding-inline: max(var(--gutter), calc((100% - var(--container-wide)) / 2));
   transform: translateX(calc(var(--p, 0) * -1 * var(--travel, 0px)));
   will-change: transform;
+}
+
+/*
+ * Título de abertura no modo preso: limitado também pela ALTURA da tela (11svh por linha).
+ * Só pela largura (1rem + 6vw), em telas largas e baixas (ex.: 1352×590) as 4 linhas passavam
+ * da altura do palco, o bloco centralizado subia por cima dos metadados e o fio cortava o título.
+ */
+.gallery[data-pinned] .openingTitle {
+  font-size: clamp(2.5rem, min(1rem + 6vw, 11svh), 7rem);
 }
 
 .gallery[data-pinned] .opening {

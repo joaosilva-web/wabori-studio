@@ -169,7 +169,6 @@ export function FeaturedGallery({ projects }: { projects: readonly Project[] }) 
         <div className={styles.stage}>
           <div ref={railRef} className={styles.rail}>
             <div className={styles.opening}>
-              <span className={`lbl ${styles.openingLabel}`} aria-hidden="true">(01) {t.label}</span>
               <h2 id="destaques-titulo" className={styles.openingTitle}>
                 <span className="sr-only">{t.title.join(' ')}</span>
                 {t.title.map((line, i) => (
