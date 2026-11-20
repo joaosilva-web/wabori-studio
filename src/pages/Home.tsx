@@ -38,23 +38,8 @@ export function Home() {
       {/* 4. Faixa em shu */}
       <Marquee items={home.marquee.items} label={home.marquee.label} />
 
-      {/* 5. Projetos em destaque: galeria horizontal presa */}
-      <FeaturedGallery
-        projects={featured}
-        head={
-          <>
-            <SectionMeta section="projetos" label={home.featured.label} aside={home.featured.aside(featured.length)} />
-            <div className={styles.head}>
-              <h2 id="destaques-titulo" className={styles.h2}>
-                {home.featured.title}
-              </h2>
-              <TextLink href={sectionPath.projetos} arrow="→">
-                {home.featured.all}
-              </TextLink>
-            </div>
-          </>
-        }
-      />
+      {/* 5. Projetos em destaque: galeria linha do tempo presa */}
+      <FeaturedGallery projects={featured} />
 
       {/* 6. Processo em uma linha (a cena completa está em /processo; a capa já conta o processo) */}
       <section className={`section ${styles.process}`} data-tone="light" aria-labelledby="processo-titulo">
