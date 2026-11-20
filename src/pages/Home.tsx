@@ -1,16 +1,12 @@
-import type { CSSProperties } from 'react'
-import { Button } from '../components/Button'
+import { HeroProcess } from '../components/HeroProcess'
 import { Kaze } from '../components/Kaze'
 import { Marquee } from '../components/Marquee'
 import { ProcessRail } from '../components/ProcessRail'
 import { ProjectList } from '../components/ProjectList'
-import { ProjectPhoto } from '../components/ProjectPhoto'
 import { Reveal } from '../components/Reveal'
 import { SectionMeta } from '../components/SectionMeta'
-import { WaboriSymbol } from '../components/Symbol'
 import { TextLink } from '../components/TextLink'
 import { content, pad2, sectionPath } from '../content'
-import { PHOTO_SIZES } from '../lib/images'
 import { getFeatured, toListItem } from '../lib/projects'
 import { usePageMeta } from '../lib/seo'
 import styles from './Home.module.css'
@@ -23,58 +19,8 @@ export function Home() {
 
   return (
     <>
-      {/* 1. Capa */}
-      <section className={styles.cover} data-tone="light" aria-labelledby="capa-titulo">
-        <div className="container-wide">
-          <div className={`lbl ${styles.bar}`}>
-            {home.cover.meta.map((m, i) => (
-              <span key={m} className={i ? 'muted' : undefined}>
-                {m}
-              </span>
-            ))}
-          </div>
-
-          <h1 id="capa-titulo" className={styles.title}>
-            <span className="sr-only">{home.cover.titleLabel}</span>
-            {home.cover.title.map((line, i) => (
-              <span key={i} className={styles.line} data-align={line.align} aria-hidden="true">
-                <span className={styles.tx} style={{ '--i': i } as CSSProperties}>
-                  {line.segments.map((seg, j) =>
-                    'symbol' in seg ? (
-                      <WaboriSymbol key={j} className={styles.titleSymbol} size=".86em" />
-                    ) : (
-                      <span key={j}>{seg.text}</span>
-                    ),
-                  )}
-                </span>
-              </span>
-            ))}
-          </h1>
-
-          <div className={styles.after}>
-            <p className={styles.lead}>{home.cover.lead}</p>
-            <div className={styles.actions}>
-              <Button href={sectionPath.iniciar}>{home.cover.primary}</Button>
-              <Button href={sectionPath.projetos} variant="secondary">
-                {home.cover.secondary}
-              </Button>
-            </div>
-          </div>
-
-          <div className={styles.photo}>
-            <ProjectPhoto
-              placeholder={home.cover.photo}
-              alt={home.cover.photoAlt}
-              state="cicatrizada"
-              framing="corpo"
-              ratio="3/2"
-              ratioMobile="4/5"
-              sizes={PHOTO_SIZES.hero}
-              priority
-            />
-          </div>
-        </div>
-      </section>
+      {/* 1. Capa: o processo em vídeo, guiado pelo scroll */}
+      <HeroProcess />
 
       {/* 2. Kaze */}
       <Kaze />

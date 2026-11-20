@@ -3,7 +3,6 @@
 // Voz: firme e sem arrogância. Frases curtas, sem ponto de exclamação, sem gíria de estúdio.
 
 import type { SectionId } from './sections'
-import type { TitleLine } from './types'
 
 type NavSection = Exclude<SectionId, 'atelie' | 'iniciar'>
 
@@ -81,19 +80,39 @@ export const pt = {
         'O corpo inteiro como composição. Ateliê de tatuagem japonesa tradicional em Maringá, PR, com projetos de braço fechado, costas, perna e bodysuit.',
     },
     cover: {
-      meta: ['Wabori®', '和彫り — Tatuagem japonesa tradicional', 'Maringá — PR'],
+      /** Etiqueta no topo da cena (não é um projeto de cliente: só o processo). */
+      label: 'Processo',
       titleLabel: 'O corpo inteiro como composição.',
-      title: [
-        { align: 'start', segments: [{ text: 'O corpo' }, { symbol: true }] },
-        { align: 'indent', segments: [{ text: 'inteiro como' }] },
-        { align: 'end', segments: [{ text: 'composição.' }] },
-      ] satisfies TitleLine[],
-      lead:
-        'Tatuagem japonesa tradicional em projetos de grande escala. Cada composição é desenhada para o corpo em que vai viver, e feita sessão por sessão.',
+      title: ['O corpo inteiro', 'como composição.'],
+      /** Texto alternativo dos quadros (o vídeo é decorativo, os quadros carregam a descrição). */
+      alt: {
+        contorno: 'Costas e braços com a tatuagem japonesa só no contorno: carpa, guerreiro, ondas e folhas de bordo.',
+        cor: 'As mesmas costas com sombra e cor entrando na composição.',
+        costas: 'As costas com a composição completa, em sombra e cor.',
+        final: 'De perfil, o braço fechado com a carpa completa.',
+      },
+      steps: [
+        {
+          label: 'Bokashi e cor',
+          text: 'Depois do contorno, sessão após sessão, a sombra dá volume e a cor assenta.',
+        },
+        {
+          label: 'Costas completas',
+          text: 'De 15 a 25 sessões, cada uma de 4 a 6 horas, com semanas de intervalo.',
+        },
+        {
+          label: 'Uma peça só',
+          text: 'Costas e braços desenhados juntos, para a composição acompanhar o corpo.',
+        },
+      ],
+      final: 'Tudo começa por uma linha.',
       primary: 'Iniciar um projeto',
       secondary: 'Ver projetos',
-      photo: '[FOTO: projeto completo, corpo inteiro]',
-      photoAlt: '[A PREENCHER: descrição da foto da capa — área, motivo e estado]',
+      ruler: {
+        label: 'Etapas do processo na capa',
+        marks: ['Contorno', 'Sombra', 'Cor', 'Costas', 'Braço'],
+        goTo: (m: string) => `Ir para a etapa ${m}`,
+      },
     },
     idea: {
       label: 'O ateliê',

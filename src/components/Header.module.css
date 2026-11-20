@@ -4,6 +4,19 @@
   z-index: 50;
   background: color-mix(in srgb, var(--color-bg) 92%, transparent);
   border-bottom: 1px solid var(--color-line);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+/* sobre a capa em vídeo: transparente, sem fio; volta ao washi translúcido depois */
+:global(html[data-over-hero]) .header {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+:global(html[data-over-hero]) .link {
+  color: var(--color-text);
 }
 
 .bar {
