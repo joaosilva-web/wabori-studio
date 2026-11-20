@@ -23,7 +23,7 @@ const t = content.study
  * No celular e com movimento reduzido: trilho com rolagem horizontal nativa.
  * Com mouse, o trilho pode ser arrastado (cursor "Arrastar"): preso, o arrasto move o scroll
  * da página (1:1 com o trilho); solto, move a rolagem horizontal do próprio trilho.
- * Um contador grande em Zen Old Mincho 900 fica preso no canto enquanto a seção está presa.
+ * Um contador grande em Dela Gothic One fica preso no canto enquanto a seção está presa.
  * Os ancestrais usam overflow-x: clip (nunca hidden) para o sticky funcionar.
  */
 export function SessionTrack({ sessions, head }: Props) {

@@ -47,7 +47,7 @@
   display: inline-flex;
   align-items: center;
   gap: .45em;
-  font: 900 1.125rem / 1 var(--font-display);
+  font: 400 1.125rem / 1 var(--font-display);
   letter-spacing: .03em;
 }
 
@@ -74,7 +74,7 @@
   align-items: baseline;
   gap: var(--space-3);
   padding-block: var(--space-3);
-  font: 900 var(--text-2xl) / 1.15 var(--font-display);
+  font: 400 var(--text-2xl) / 1.15 var(--font-display);
   text-decoration: none;
 }
 

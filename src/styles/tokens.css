@@ -32,7 +32,7 @@
   --color-kaze: var(--sumi-2);
   --color-kaze-warm: var(--kinari-2);
 
-  --font-display: 'Zen Old Mincho', 'Noto Serif JP', serif; /* sempre 900 */
+  --font-display: 'Dela Gothic One', 'Zen Kaku Gothic New', sans-serif; /* peso único: 400 */
   --font-body: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
 
   --text-xs: .75rem;
@@ -41,7 +41,7 @@
   --text-lg: 1.125rem;
   --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
   --text-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
-  --text-hero: clamp(2.75rem, 1.4rem + 5.4vw, 6rem);
+  --text-hero: clamp(2.5rem, 1.25rem + 4.8vw, 5.4rem);
 
   --space-1: 4px;
   --space-2: 8px;

@@ -36,12 +36,12 @@
 }
 
 .stepNum {
-  font: 900 var(--text-xl) / 1 var(--font-display);
+  font: 400 var(--text-xl) / 1 var(--font-display);
   color: var(--tone-accent);
 }
 
 .stepName {
-  font: 900 var(--text-lg) / 1.2 var(--font-display);
+  font: 400 var(--text-lg) / 1.2 var(--font-display);
 }
 
 @media (max-width: 760px) {

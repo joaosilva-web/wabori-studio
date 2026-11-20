@@ -5,11 +5,11 @@
  * Licença: SIL Open Font License 1.1 — public/fonts/OFL-*.txt
  */
 @font-face {
-  font-family: 'Zen Old Mincho';
+  font-family: 'Dela Gothic One';
   font-style: normal;
-  font-weight: 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/zen-old-mincho-900.woff2') format('woff2');
+  src: url('/fonts/dela-gothic-one-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Zen Kaku Gothic New';

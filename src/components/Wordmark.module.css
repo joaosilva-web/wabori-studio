@@ -3,7 +3,7 @@
   align-items: center;
   gap: .45em;
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 400;
   letter-spacing: .03em;
   line-height: 1;
   white-space: nowrap;
@@ -12,6 +12,24 @@
 .word {
   /* centraliza pela caixa alta, não pela caixa da linha */
   text-box: trim-both cap alphabetic;
+}
+
+/* variante empilhada: WABORI em cima, STUDIO embaixo */
+.stacked {
+  flex-direction: column;
+  align-items: center;
+  gap: .2em;
+}
+
+.stacked .symbol {
+  margin-bottom: .1em;
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
 }
 
 .symbol {

@@ -78,7 +78,7 @@
   gap: .45em;
   min-height: 44px;
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 400;
   font-size: 1.125rem;
   letter-spacing: .03em;
   line-height: 1;
@@ -102,7 +102,7 @@
   animation: fadeIn calc(300ms * var(--T)) var(--ease) calc(550ms * var(--T)) backwards;
 }
 
-/* ---------- WABORI: letra por letra, descendo por trás de uma máscara ---------- */
+/* ---------- WABORI STUDIO: letra por letra, descendo por trás de uma máscara ---------- */
 .word {
   display: inline-flex;
   text-box: trim-both cap alphabetic;
@@ -111,6 +111,11 @@
 .letterMask {
   display: inline-block;
   overflow: clip;
+}
+
+.wordGap {
+  display: inline-block;
+  width: .3em;
 }
 
 .letter {
