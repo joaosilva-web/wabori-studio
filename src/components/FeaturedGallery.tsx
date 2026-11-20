@@ -2,9 +2,10 @@ import { useCallback, useEffect, useRef, type ReactNode } from 'react'
 import { Link } from 'react-router'
 import { content, pad2, sectionPath } from '../content'
 import { useReducedMotion } from '../hooks/useMediaQuery'
-import { useScrollProgress } from '../hooks/useScrollProgress'
+import { scrollYForProgress, useScrollProgress } from '../hooks/useScrollProgress'
 import { PHOTO_SIZES } from '../lib/images'
 import type { Project } from '../lib/projects'
+import { scrollToTarget } from '../lib/smoothScroll'
 import { ProjectPhoto } from './ProjectPhoto'
 import { WaboriSymbol } from './Symbol'
 import styles from './FeaturedGallery.module.css'
@@ -18,12 +19,16 @@ type Props = {
 const t = content.home.featured
 const ui = content.ui
 const WIDE = '(min-width: 761px)'
+/** 1,5 px de scroll para cada 1 px de deslocamento horizontal dos cartões. */
+const SCROLL_PER_PX = 1.5
+/** Viagem abaixo deste limiar: cartões quase cabem; sem prender (data-static). */
+const MIN_TRAVEL = 200
 
 /**
- * Cena 7 — projetos em galeria horizontal. Seção presa (300 vh): o scroll vertical leva
- * os cartões 4:5 na horizontal (--p e --travel no sticky, sem re-render). Termina num
- * cartão "Ver todos os projetos". O cursor vira o anel "Ver" sobre os cartões (data-cursor).
- * Celular e movimento reduzido: carrossel nativo com scroll-snap, nada preso (no CSS).
+ * Cena 7 — projetos em galeria horizontal. Altura dinâmica: 100svh + viagem × 1,5 px/px.
+ * O scroll vertical leva os cartões 4:5 na horizontal (--p e --travel no .gallery, sem re-render).
+ * [data-static] quando a viagem é pequena: carrossel nativo, sem prender. Termina num cartão
+ * "Ver todos os projetos". O cursor vira o anel "Ver" sobre os cartões (data-cursor).
  */
 export function FeaturedGallery({ projects, head }: Props) {
   const reduced = useReducedMotion()
@@ -33,8 +38,8 @@ export function FeaturedGallery({ projects, head }: Props) {
 
   const measure = useCallback(() => {
     const track = trackRef.current
-    const sticky = stickyRef.current
-    if (!track || !sticky) return
+    const wrapper = wrapperRef.current
+    if (!track || !wrapper) return
     const last = track.lastElementChild as HTMLElement | null
     if (!last) return
     // pela borda do último cartão (o scrollWidth não conta o padding final do flex);
@@ -42,17 +47,39 @@ export function FeaturedGallery({ projects, head }: Props) {
     const padEnd = parseFloat(getComputedStyle(track).paddingRight) || 0
     const overflow = last.getBoundingClientRect().right - track.getBoundingClientRect().right + padEnd
     const travel = window.matchMedia(WIDE).matches ? Math.max(0, overflow) : 0
-    sticky.style.setProperty('--travel', `${travel}px`)
+    wrapper.style.setProperty('--travel', `${travel}px`)
+    wrapper.style.setProperty('--scroll-per-px', String(SCROLL_PER_PX))
+    wrapper.toggleAttribute('data-static', travel < MIN_TRAVEL)
   }, [])
 
   useEffect(() => {
     if (reduced) return
     measure()
     const ro = new ResizeObserver(measure)
-    if (trackRef.current) ro.observe(trackRef.current)
+    const track = trackRef.current
+    if (track) {
+      ro.observe(track)
+      for (const item of track.children) ro.observe(item)
+    }
+    window.addEventListener('resize', measure)
     document.fonts?.ready.then(measure)
-    return () => ro.disconnect()
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
   }, [reduced, measure])
+
+  const onCardFocus = useCallback((i: number) => {
+    const wrapper = wrapperRef.current
+    const sticky = stickyRef.current
+    if (!wrapper || !sticky || reduced) return
+    if (!window.matchMedia(WIDE).matches) return
+    const travel = parseFloat(wrapper.style.getPropertyValue('--travel') || '0')
+    if (travel < MIN_TRAVEL) return
+    const total = (trackRef.current?.children.length ?? 1) - 1
+    const p = total > 0 ? Math.max(0, Math.min(1, i / total)) : 0
+    scrollToTarget(scrollYForProgress(wrapper, sticky, p), { immediate: true })
+  }, [reduced])
 
   useScrollProgress(
     wrapperRef,
@@ -70,7 +97,7 @@ export function FeaturedGallery({ projects, head }: Props) {
           {projects.map((p, i) => {
             const photo = p.photos[0]
             return (
-              <li key={p.slug} className={styles.item}>
+              <li key={p.slug} className={styles.item} onFocus={() => onCardFocus(i)}>
                 <Link to={p.href} className={styles.card} data-cursor="view">
                   <ProjectPhoto
                     image={photo?.image}
@@ -89,7 +116,7 @@ export function FeaturedGallery({ projects, head }: Props) {
               </li>
             )
           })}
-          <li className={styles.item}>
+          <li className={styles.item} onFocus={() => onCardFocus(projects.length)}>
             <Link to={sectionPath.projetos} className={`${styles.card} ${styles.all}`} data-tone="primary">
               <WaboriSymbol size={44} />
               <span className={styles.allText}>
