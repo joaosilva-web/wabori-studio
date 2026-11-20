@@ -3,7 +3,6 @@
 // Voz: firme e sem arrogância. Frases curtas, sem ponto de exclamação, sem gíria de estúdio.
 
 import type { SectionId } from './sections'
-import type { TitleLine } from './types'
 
 type NavSection = Exclude<SectionId, 'atelie' | 'iniciar'>
 
@@ -69,6 +68,8 @@ export const pt = {
     optional: 'opcional',
     yes: 'Sim',
     no: 'Não',
+    /** Texto do cursor customizado (desktop com mouse). */
+    cursor: { view: 'Ver', drag: 'Arrastar' },
   },
 
   /* ---------------------------------------------------------------
@@ -81,19 +82,39 @@ export const pt = {
         'O corpo inteiro como composição. Ateliê de tatuagem japonesa tradicional em Maringá, PR, com projetos de braço fechado, costas, perna e bodysuit.',
     },
     cover: {
-      meta: ['Wabori®', '和彫り — Tatuagem japonesa tradicional', 'Maringá — PR'],
+      /** Etiqueta no topo da cena (não é um projeto de cliente: só o processo). */
+      label: 'Processo',
       titleLabel: 'O corpo inteiro como composição.',
-      title: [
-        { align: 'start', segments: [{ text: 'O corpo' }, { symbol: true }] },
-        { align: 'indent', segments: [{ text: 'inteiro como' }] },
-        { align: 'end', segments: [{ text: 'composição.' }] },
-      ] satisfies TitleLine[],
-      lead:
-        'Tatuagem japonesa tradicional em projetos de grande escala. Cada composição é desenhada para o corpo em que vai viver, e feita sessão por sessão.',
+      title: ['O corpo inteiro', 'como composição.'],
+      /** Texto alternativo dos quadros (o vídeo é decorativo, os quadros carregam a descrição). */
+      alt: {
+        contorno: 'Costas e braços com a tatuagem japonesa só no contorno: carpa, guerreiro, ondas e folhas de bordo.',
+        cor: 'As mesmas costas com sombra e cor entrando na composição.',
+        costas: 'As costas com a composição completa, em sombra e cor.',
+        final: 'De perfil, o braço fechado com a carpa completa.',
+      },
+      steps: [
+        {
+          label: 'Bokashi e cor',
+          text: 'Depois do contorno, sessão após sessão, a sombra dá volume e a cor assenta.',
+        },
+        {
+          label: 'Costas completas',
+          text: 'De 15 a 25 sessões, cada uma de 4 a 6 horas, com semanas de intervalo.',
+        },
+        {
+          label: 'Uma peça só',
+          text: 'Costas e braços desenhados juntos, para a composição acompanhar o corpo.',
+        },
+      ],
+      final: 'Tudo começa por uma linha.',
       primary: 'Iniciar um projeto',
       secondary: 'Ver projetos',
-      photo: '[FOTO: projeto completo, corpo inteiro]',
-      photoAlt: '[A PREENCHER: descrição da foto da capa — área, motivo e estado]',
+      ruler: {
+        label: 'Etapas do processo na capa',
+        marks: ['Contorno', 'Sombra', 'Cor', 'Costas', 'Braço'],
+        goTo: (m: string) => `Ir para a etapa ${m}`,
+      },
     },
     idea: {
       label: 'O ateliê',
@@ -125,6 +146,8 @@ export const pt = {
       aside: (n: number) => `${String(n).padStart(2, '0')} em destaque`,
       title: 'Composições inteiras, sessão por sessão.',
       all: 'Ver todos os projetos',
+      allCard: ['Ver todos', 'os projetos'],
+      galleryLabel: 'Projetos em destaque',
     },
     process: {
       label: 'Processo',
@@ -155,6 +178,12 @@ export const pt = {
     title: ['Da conversa', 'à cicatrização.'],
     lead:
       'Um projeto de grande escala é feito em etapas, ao longo de meses. Você sabe o que esperar de cada uma antes de começar.',
+    /** Cena "Como uma composição nasce": o corpo-tela que se constrói por camadas. */
+    canvas: {
+      label: 'Como uma composição nasce',
+      alt: 'A composição completa em sombra e cor, construída camada por camada.',
+      progress: 'Etapa do processo',
+    },
     steps: [
       {
         title: 'Conversa',
@@ -301,11 +330,13 @@ export const pt = {
       name: '[A PREENCHER: nome do artista]',
       photo: '[FOTO: retrato do artista no ateliê]',
       photoAlt: '[A PREENCHER: descrição do retrato do artista]',
-      paragraphs: [
+      /** A história, em texto que se acende palavra por palavra (padrão do manifesto). */
+      story: [
         'Começou tatuando outros estilos. Com o tempo, o estudo da tatuagem japonesa tradicional tomou o lugar do resto, e hoje ele faz só esse estilo.',
         'Não tem linhagem formal nem nome de horishi, o nome de ofício que um mestre japonês dá ao aprendiz. O que sustenta o trabalho é o estudo contínuo e os projetos mostrados por inteiro, do esboço à pele cicatrizada.',
-        '[A PREENCHER: anos de trabalho, formação e outros fatos verificáveis]',
       ],
+      storyLabel: 'A trajetória',
+      paragraphs: ['[A PREENCHER: anos de trabalho, formação e outros fatos verificáveis]'],
     },
   },
 

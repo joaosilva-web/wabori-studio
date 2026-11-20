@@ -1,0 +1,149 @@
+/*
+ * Cena 7 — galeria horizontal. --p (0 → 1) e --travel (px) vêm do JS no .sticky.
+ * Presa só em tela larga sem movimento reduzido; senão, carrossel nativo com scroll-snap.
+ */
+.gallery {
+  --card-h: min(56svh, 620px);
+  position: relative;
+  height: 300vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-5);
+  padding-top: var(--header-h);
+}
+
+.head > :last-child {
+  margin-block: var(--space-4) 0;
+}
+
+.track {
+  list-style: none;
+  padding: 0 max(var(--gutter), (100% - var(--container-wide)) / 2);
+  margin: 0;
+  display: flex;
+  gap: var(--space-4);
+  transform: translateX(calc(var(--p, 0) * var(--travel, 0px) * -1));
+  will-change: transform;
+}
+
+.item {
+  flex: none;
+  width: calc(var(--card-h) * .8);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--tone-line);
+}
+
+.num {
+  font: 900 var(--text-lg) / 1 var(--font-display);
+  color: var(--color-primary);
+}
+
+.sessions {
+  margin-left: auto;
+  color: var(--tone-muted);
+}
+
+.title {
+  font-size: var(--text-xl);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1.5px no-repeat;
+  justify-self: start;
+  transition: background-size var(--dur-slow) var(--ease-ink);
+}
+
+.card:hover .title,
+.card:focus-visible .title {
+  background-size: 100% 1.5px;
+}
+
+/* cartão final em shu, na altura da foto */
+.all {
+  aspect-ratio: 4 / 5;
+  align-content: space-between;
+  padding: var(--space-4);
+  background: var(--tone-bg);
+}
+
+.allText {
+  font: 900 var(--text-2xl) / 1.05 var(--font-display);
+}
+
+.allText span {
+  display: block;
+}
+
+.allArrow {
+  font: 900 var(--text-2xl) / 1 var(--font-display);
+  transition: translate var(--dur) var(--ease-enter);
+}
+
+.all:hover .allArrow,
+.all:focus-visible .allArrow {
+  translate: .3em 0;
+}
+
+/* ---------- celular e movimento reduzido: carrossel com scroll-snap ---------- */
+@media (max-width: 760px) {
+  .gallery {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding-block: var(--space-6);
+  }
+  .track {
+    transform: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    padding-bottom: var(--space-2);
+  }
+  .item {
+    width: 78vw;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding-block: var(--space-7);
+  }
+  .track {
+    transform: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+  }
+  .item {
+    scroll-snap-align: start;
+  }
+}

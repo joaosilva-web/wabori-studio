@@ -8,6 +8,8 @@ import { useId, type CSSProperties, type SVGProps } from 'react'
 export const SYMBOL_VIEWBOX = '0 0 120 120'
 export const WAVE_PATH =
   'M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90 L -4 124 L 124 124 Z'
+/** Só a linha da onda com garras (o contorno, sem o fundo): para desenhar como traço. */
+export const WAVE_LINE = WAVE_PATH.replace(/ L -4 124 L 124 124 Z$/, '')
 export const CARVE_PATH = 'M124 80 C 108 74, 96 56, 82 50 C 74 47, 68 48, 63 51'
 
 /** Defs (clip + máscara) com ids únicos por instância. */

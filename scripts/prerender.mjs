@@ -75,7 +75,10 @@ function page(url) {
 
 const list = routes()
 for (const url of list) {
-  const file = url === '/' ? join(DIST, 'index.html') : join(DIST, url, 'index.html')
+  // /sobre → dist/sobre.html (e não sobre/index.html): com cleanUrls a Vercel serve /sobre
+  // direto desse arquivo, e o vite preview também. Com sobre/index.html, /sobre sem barra
+  // caía no fallback da home e a hidratação falhava (o React descartava o HTML).
+  const file = url === '/' ? join(DIST, 'index.html') : join(DIST, `${url}.html`)
   await mkdir(join(file, '..'), { recursive: true })
   await writeFile(file, page(url))
 }

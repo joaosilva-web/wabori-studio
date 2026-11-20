@@ -1,0 +1,207 @@
+/*
+ * Cena 6 — como uma composição nasce. --p (0 → 1) no .sticky.
+ * Cada etapa ocupa 1/5 do progresso. Camadas: contorno entra em .14, cor em .58, completa em .74.
+ */
+.scene {
+  position: relative;
+  height: 400vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-top: var(--header-h);
+  display: grid;
+  align-items: center;
+  overflow: clip;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+/* ---------- etapas ---------- */
+.list {
+  position: relative;
+  padding-left: var(--space-4);
+}
+
+/* fio de base + barra shu de progresso */
+.list::before,
+.bar {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.list::before {
+  background: var(--color-border);
+}
+
+.bar {
+  background: var(--color-primary);
+  transform-origin: top;
+  transform: scaleY(var(--p, 1));
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  column-gap: var(--space-3);
+  align-items: baseline;
+  /* inativa: numeral em nezumi a 40% (decorativo); o título a 76%, o mínimo para 3:1
+     (texto grande) sobre washi — a 40% ele ficaria em 1,75:1 */
+  color: color-mix(in srgb, var(--nezumi) 76%, var(--washi));
+  transition: color var(--dur) var(--ease);
+}
+
+.step .num {
+  color: color-mix(in srgb, var(--nezumi) 40%, var(--washi));
+  transition: color var(--dur) var(--ease);
+}
+
+.step[data-active] {
+  color: var(--color-text);
+}
+
+.num {
+  font: 900 var(--text-2xl) / 1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.step[data-active] .num {
+  color: var(--color-primary);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+/* só a etapa ativa abre o texto (0fr → 1fr) */
+.textWrap {
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-slow) var(--ease-enter);
+}
+
+.step[data-active] .textWrap {
+  grid-template-rows: 1fr;
+}
+
+.text {
+  overflow: hidden;
+  max-width: 52ch;
+  padding-top: var(--space-2);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.step[data-active] .text {
+  opacity: 1;
+}
+
+/* ---------- corpo-tela ---------- */
+.canvas {
+  position: relative;
+  justify-self: center;
+  width: min(100%, (100svh - var(--header-h) - 96px) * .8);
+  aspect-ratio: 4 / 5;
+  background: var(--color-warm);
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  /* l = 0 contorno · 1 cor · 2 completa */
+  --start: calc(.14 + var(--l) * .44 - max(0, var(--l) - 1) * .28);
+  opacity: clamp(0, (var(--p, 1) - var(--start)) / .08, 1);
+}
+
+.layer > picture {
+  display: block;
+  height: 100%;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.seal {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1;
+  color: var(--color-text);
+}
+
+/* ---------- celular: tela em cima, etapa ativa embaixo (~60% da altura) ---------- */
+@media (max-width: 760px) {
+  .scene {
+    height: 240vh;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .canvas {
+    order: -1;
+    width: min(100%, 38svh * .8);
+  }
+  .steps {
+    gap: var(--space-2);
+  }
+  .step {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+  .num {
+    font-size: var(--text-lg);
+  }
+  /* 20 px em 900 é "texto grande" (≥ 18,66 px em negrito): o título inativo passa com 3:1 */
+  .title {
+    font-size: 1.25rem;
+  }
+}
+
+/* ---------- movimento reduzido: empilhado, tudo aceso, camadas completas ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+    height: auto;
+    padding-block: var(--space-6);
+  }
+  .step {
+    color: var(--color-text);
+  }
+  .textWrap {
+    grid-template-rows: 1fr;
+  }
+  .text {
+    opacity: 1;
+  }
+  .canvas {
+    width: min(100%, 520px);
+  }
+}

@@ -1,4 +1,5 @@
 import { Kaze } from '../components/Kaze'
+import { Manifesto } from '../components/Manifesto'
 import { ProjectPhoto } from '../components/ProjectPhoto'
 import { Reveal } from '../components/Reveal'
 import { SectionMeta } from '../components/SectionMeta'
@@ -99,6 +100,17 @@ export function About() {
           </div>
         </div>
       </section>
+
+      {/* a história do artista no padrão do manifesto, mais curto (160 vh) */}
+      <Kaze />
+      <Manifesto
+        section="sobre"
+        label={t.label}
+        aside={t.artist.heading}
+        heading={t.artist.storyLabel}
+        text={t.artist.story.join(' ')}
+        size="short"
+      />
     </>
   )
 }

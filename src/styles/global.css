@@ -14,6 +14,7 @@
 
 html {
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -73,6 +74,23 @@ fieldset {
   min-width: 0;
 }
 
+/* ---------- Lenis (rolagem suave, só desktop) ----------
+ * O Lenis rola a própria janela: nada de wrapper com overflow: hidden.
+ * Com ele ativo, o scroll-behavior nativo sai (o Lenis já suaviza). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis {
+  scroll-behavior: auto;
+}
+html.lenis.lenis-stopped {
+  overflow: clip;
+}
+html.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 /* ---------- tons ----------------------------------------------------------
  * Cada seção declara data-tone; os componentes leem só estas variáveis.
  * light = washi · dark = sumi · primary = shu · warm = kinari
@@ -124,6 +142,11 @@ fieldset {
   outline-offset: 3px;
 }
 
+/* h1 recebe foco programático na troca de rota: sem contorno (não é um controle) */
+h1[tabindex='-1']:focus {
+  outline: none;
+}
+
 ::selection {
   background: var(--color-primary);
   color: var(--color-on-primary);
@@ -151,6 +174,13 @@ fieldset {
   .section {
     padding-block: var(--space-6);
   }
+}
+
+/* conteúdo da página: fica acima do rodapé preso (Cena 8) e o cobre até o fim */
+.surface {
+  position: relative;
+  z-index: 1;
+  background: var(--color-bg);
 }
 
 /* ---------- utilitários ---------- */
@@ -212,6 +242,9 @@ fieldset {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
@@ -221,5 +254,107 @@ fieldset {
   .js [data-rv] {
     opacity: 1;
     translate: none;
+  }
+}
+
+/* ---------- cursor customizado (lib/cursor.ts, só mouse e sem movimento reduzido) ----------
+ * O cursor do sistema some, menos em campos de texto. Um ponto shu de 8 px; sobre cartões,
+ * o anel do símbolo de 88 px com "Ver" em washi sobre shu; sobre links, 32 px. */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none;
+}
+html.has-cursor :is(input, textarea, select, [contenteditable='true']),
+html.has-cursor :is(input, textarea, [contenteditable='true']) * {
+  cursor: auto;
+}
+html.has-cursor :is(input[type='text'], input[type='email'], input[type='tel'], input[type='url'], input[type='search'], input:not([type]), textarea) {
+  cursor: text;
+}
+
+.wb-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity var(--dur-fast) var(--ease);
+  will-change: transform;
+}
+.wb-cursor.is-shown {
+  opacity: 1;
+}
+/* o anel washi (mikiri) dentro do disco shu, só nos estados grandes */
+.wb-cursor::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 3px solid var(--color-on-primary);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.wb-cursor__label {
+  font: 700 11px / 1 var(--font-body);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.wb-cursor:is([data-state='view'], [data-state='drag'])::before,
+.wb-cursor:is([data-state='view'], [data-state='drag']) .wb-cursor__label {
+  opacity: 1;
+}
+.wb-cursor[data-state='link'] {
+  background: transparent;
+  border: 3px solid var(--color-primary);
+}
+.wb-cursor.is-down .wb-cursor__label {
+  opacity: .7;
+}
+/* diálogo modal (top layer) por cima de tudo: volta o cursor do sistema */
+html.has-cursor:has(dialog[open]),
+html.has-cursor:has(dialog[open]) * {
+  cursor: auto;
+}
+html:has(dialog[open]) .wb-cursor {
+  display: none;
+}
+
+/* ---------- transição entre páginas (lib/pageTransition.ts) ----------
+ * Painel shu com o símbolo washi. Sobe de baixo (450 ms) e sai pelo topo (600 ms).
+ * Com View Transitions, a saída é a captura antiga (o painel) deslizando para cima. */
+.wb-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(100%);
+}
+
+html.wb-vt::view-transition-old(root),
+html.wb-vt::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: none;
+}
+html.wb-vt::view-transition-old(root) {
+  z-index: 1;
+  animation: wb-panel-out 600ms var(--ease-enter) forwards;
+}
+@keyframes wb-panel-out {
+  to {
+    transform: translateY(-100%);
   }
 }

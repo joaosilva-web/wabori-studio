@@ -26,37 +26,6 @@
   margin-block: var(--space-6) var(--space-5);
 }
 
-/* ---------- etapas ---------- */
-.steps {
-  list-style: none;
-  padding: 0;
-  border-bottom: 1px solid var(--tone-line);
-}
-
-.step {
-  display: grid;
-  grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1.4fr);
-  gap: var(--space-4) var(--space-5);
-  align-items: baseline;
-  padding-block: var(--space-5);
-  border-top: 1px solid var(--tone-line);
-}
-
-.num {
-  font: 900 var(--text-2xl) / 1 var(--font-display);
-  color: var(--tone-accent);
-  font-variant-numeric: tabular-nums;
-}
-
-.stepTitle {
-  font-size: var(--text-xl);
-}
-
-.stepText {
-  max-width: 60ch;
-  font-size: var(--text-lg);
-}
-
 /* ---------- tempo ---------- */
 .durations {
   display: grid;
@@ -112,12 +81,6 @@
   .head {
     grid-template-columns: 1fr;
   }
-  .step {
-    grid-template-columns: 64px minmax(0, 1fr);
-  }
-  .stepText {
-    grid-column: 2;
-  }
   .durations,
   .care {
     grid-template-columns: 1fr;
@@ -127,12 +90,5 @@
 @media (max-width: 760px) {
   .head {
     margin-block: var(--space-5);
-  }
-  .step {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
-  }
-  .stepText {
-    grid-column: auto;
   }
 }

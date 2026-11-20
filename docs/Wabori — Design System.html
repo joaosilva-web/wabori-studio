@@ -269,10 +269,12 @@ fieldset.field{border:0;padding:0}
 .curves.play .dot{left:calc(100% - 26px)}
 .draw-demo{display:flex;gap:var(--space-5);align-items:center;flex-wrap:wrap}
 .draw-demo svg{width:160px;height:160px;color:var(--shu)}
-.draw-demo .ring{stroke-dasharray:334;stroke-dashoffset:0;transition:stroke-dashoffset 1.4s var(--ease-ink)}
-.draw-demo .wave{transition:opacity .6s var(--ease) .9s}
-.draw-demo.reset .ring{stroke-dashoffset:334;transition:none}
-.draw-demo.reset .wave{opacity:0;transition:none}
+.draw-demo .line{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.1s var(--ease-ink)}
+.draw-demo .wave{clip-path:inset(0 0 0 0);transition:clip-path .6s var(--ease) 1s}
+.draw-demo .ring{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset .8s var(--ease-ink) 1.5s}
+.draw-demo.reset .line,.draw-demo.reset .ring{stroke-dashoffset:1;transition:none}
+.draw-demo.reset .wave{clip-path:inset(100% 0 0 0);transition:none}
+
 .curtain{position:relative;width:220px;aspect-ratio:4/5;background:var(--color-warm);overflow:hidden;display:grid;place-items:center;font-size:var(--text-sm)}
 .curtain::after{content:'';position:absolute;inset:0;background:var(--washi);transform:scaleY(0);transform-origin:top;transition:transform var(--dur-slow) var(--ease-enter)}
 .curtain.hide::after{transform:scaleY(1);transform-origin:bottom;transition:none}
@@ -327,7 +329,7 @@ footer .big .mk{width:.8em;height:.8em;color:var(--washi)}
 
 <div class="intro" aria-hidden="true">
   <svg viewBox="0 0 120 120">
-    <g class="wave" clip-path="url(#wb-c)"><path fill="currentColor" mask="url(#wb-m)" d="M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90 L -4 124 L 124 124 Z" /></g>
+    <g clip-path="url(#wb-c)"><g class="wave"><path fill="currentColor" mask="url(#wb-m)" d="M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90 L -4 124 L 124 124 Z" /></g></g>
     <circle class="ring" cx="60" cy="60" r="53" fill="none" stroke="currentColor" stroke-width="8" transform="rotate(-90 60 60)" />
   </svg>
 </div>
@@ -614,7 +616,7 @@ footer .big .mk{width:.8em;height:.8em;color:var(--washi)}
   <div class="wrap">
     <div class="meta lbl"><span>(06) Movimento</span><span>Clique em "tocar"</span></div>
     <h2 class="stitle">Entra como tinta, corre como vento.</h2>
-    <p class="lead">A página está sempre um pouco viva: o vento corre, as faixas giram com o scroll e cada título sobe por trás de uma máscara. O movimento entra devagar e sai rápido, sem mola nem quique. As fotos de tatuagem não se mexem: o movimento fica com a moldura.</p>
+    <p class="lead">A página conta uma história enquanto você rola: seções presas, cenas guiadas pelo scroll, vento que reage à velocidade e transições que emendam uma seção na outra. Cada cena traduz um elemento real da tatuagem japonesa: o contorno (sujibori), a sombra (bokashi), a borda (mikiri), o fundo de vento e água (Kaze) e as sessões. O movimento entra devagar e sai rápido, sem mola nem quique. As fotos de tatuagem não se mexem: o movimento fica com a moldura.</p>
 
     <span class="label">Curvas</span>
     <div class="grid curves" id="curves" style="gap:var(--space-2)">
@@ -625,31 +627,62 @@ footer .big .mk{width:.8em;height:.8em;color:var(--washi)}
     </div>
     <button class="btn" style="margin-top:var(--space-4)" id="play">Tocar curvas</button>
 
-    <span class="label" style="margin-top:var(--space-6)">Símbolo traçado e foto revelada</span>
+    <span class="label" style="margin-top:var(--space-6)">Símbolo tatuado (sujibori, bokashi, mikiri) e foto revelada</span>
     <div class="draw-demo reset" id="draw">
-      <svg viewBox="0 0 120 120" role="img" aria-label="O símbolo se desenhando: primeiro o anel, depois a onda">
-        <g class="wave" clip-path="url(#wb-c)"><path fill="currentColor" mask="url(#wb-m)" d="M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90 L -4 124 L 124 124 Z" /></g>
-        <circle class="ring" cx="60" cy="60" r="53" fill="none" stroke="currentColor" stroke-width="8" transform="rotate(-90 60 60)" />
+      <svg viewBox="0 0 120 120" role="img" aria-label="O símbolo sendo tatuado: o contorno da onda, o preenchimento que sobe e o anel que se fecha">
+        <g clip-path="url(#wb-c)"><path class="line" pathLength="1" d="M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90" /></g>
+        <g clip-path="url(#wb-c)"><g class="wave"><path fill="currentColor" mask="url(#wb-m)" d="M124 66 C 106 60, 94 38, 74 30 C 58 24, 40 26, 30 38 C 23 47, 27 59, 37 58 Q 38 48 46 50 L 44 61 Q 47 51 55 54 L 52 64 Q 56 55 64 58 C 66 70, 56 80, 36 84 C 22 88, 10 86, -4 90 L -4 124 L 124 124 Z" /></g></g>
+        <circle class="ring" pathLength="1" cx="60" cy="60" r="53" fill="none" stroke="currentColor" stroke-width="8" transform="rotate(-90 60 60)" />
       </svg>
       <div class="curtain hide" id="curtain">[FOTO: projeto]</div>
     </div>
     <button class="btn sec" style="margin-top:var(--space-4)" id="replay">Tocar entrada</button>
-    <table style="margin-top:var(--space-5)">
-      <thead><tr><th>Efeito</th><th>Onde</th><th>Gatilho</th></tr></thead>
+    <span class="label" style="margin-top:var(--space-6)">Regras liberadas nesta versão</span>
+    <table>
+      <thead><tr><th>Regra</th><th>Como</th></tr></thead>
       <tbody>
-        <tr><td>Abertura em shu: o anel se fecha, a onda aparece e a cortina sobe</td><td>Entrada do site</td><td>Carregamento, cerca de 2,4 s</td></tr>
-        <tr><td>Título linha por linha, subindo por trás de uma máscara</td><td>Capa e títulos de seção</td><td>Carregamento e scroll</td></tr>
-        <tr><td>Blocos entrando de baixo em sequência (80 ms)</td><td>Cartões, cores, linhas, perguntas</td><td>Scroll, uma vez</td></tr>
-        <tr><td>Kaze correndo em três velocidades</td><td>Transições entre seções</td><td>Contínuo; o scroll acelera e inverte</td></tr>
-        <tr><td>Faixa de áreas do corpo em shu</td><td>Entre seções, na home</td><td>Contínua; o scroll acelera e inverte</td></tr>
-        <tr><td>Tinta subindo no botão</td><td>Todos os botões</td><td>Hover e foco</td></tr>
-        <tr><td>Sublinhado que se redesenha</td><td>Links de texto</td><td>Hover e foco</td></tr>
-        <tr><td>Linha em shu e prévia da foto seguindo o cursor</td><td>Lista de projetos</td><td>Hover (só desktop)</td></tr>
-        <tr><td>Foto revelada por uma cortina de papel</td><td>Fotos de projetos</td><td>Scroll, uma vez</td></tr>
-        <tr><td>WABORI deslizando na horizontal</td><td>Rodapé</td><td>Scroll</td></tr>
+        <tr><td>Rolagem suave</td><td>Lenis, <code>lerp: 0.09</code>, só no desktop com mouse e nunca em movimento reduzido. Rola a própria janela (sem wrapper com <code>overflow: hidden</code>). O <code>scrollVelocity</code> lê <code>lenis.velocity</code> e cai para <code>scrollY</code> sem ele.</td></tr>
+        <tr><td>Cursor customizado</td><td>Só com <code>pointer: fine</code>. Ponto shu de 8 px com lerp 0,25; anel do símbolo de 88 px com “Ver” (ou “Arrastar”) em washi sobre shu; 32 px em links e botões. Some em campos de texto (o cursor do sistema volta), no toque, com diálogo aberto e em movimento reduzido.</td></tr>
+        <tr><td>Cenas presas no scroll</td><td><code>position: sticky</code> numa seção alta. Ancestrais sempre com <code>overflow-x: clip</code>, nunca <code>overflow: hidden</code>. Presa × empilhada é decidido no CSS (media queries), nunca no markup.</td></tr>
+        <tr><td>Máscara sobre foto durante uma transição</td><td>Círculo que abre (íris) e cortina. O estado final sempre mostra a foto inteira. Continua proibido animar a foto em si: nada de zoom, distorção, parallax dentro do quadro ou filtro.</td></tr>
+        <tr><td>Continua valendo</td><td>O símbolo nunca gira; o shu é a cor da marca; o ōdo quase nunca aparece; nada de vidro, pílula ou sombra.</td></tr>
       </tbody>
     </table>
-    <p class="note"><b>Sempre:</b> as fotos de tatuagem nunca são animadas, distorcidas ou cortadas por efeito. O símbolo nunca gira. Tudo pausa fora da tela e fica estático em <code>prefers-reduced-motion</code>.</p>
+
+    <span class="label" style="margin-top:var(--space-6)">Padrão técnico</span>
+    <p>Cada cena escreve o progresso (0 → 1) em CSS variables via <code>requestAnimationFrame</code>, sem re-render do React por quadro, usando sempre o mesmo hook (<code>useScrollProgress</code>). O React só re-renderiza quando muda uma etapa discreta (etapa ativa, número da sessão). Sem GSAP. Tudo pausa fora da tela. Lenis, loop de busca do vídeo, cursor e transição de página entram por <code>import()</code> depois da hidratação. Canvas, Lenis, cursor e View Transitions só rodam dentro de <code>useEffect</code>: o HTML pré-renderizado é o mesmo no servidor e no cliente.</p>
+
+    <span class="label" style="margin-top:var(--space-6)">Inventário de cenas</span>
+    <table>
+      <thead><tr><th>Cena</th><th>Onde</th><th>Altura presa</th><th>O que acontece</th><th>Movimento reduzido</th></tr></thead>
+      <tbody>
+        <tr><td>1. Abertura</td><td>Entrada do site</td><td>—</td><td>Sobre shu, o símbolo washi é tatuado: sujibori (contorno, 1,1 s), bokashi (preenchimento sobe, 0,6 s, linha entalhada por último), mikiri (anel, 0,8 s). O anel vira uma íris que revela o pôster da capa. Mínimo ~2,4 s, primeira visita da sessão; nas seguintes, só a íris (0,6 s).</td><td>Não aparece</td></tr>
+        <tr><td>2. Capa em vídeo</td><td>Home</td><td>500 vh · 350 vh no celular</td><td>O vídeo all-intra roda de trás para frente com o scroll: do contorno (quadro 189) à peça completa (quadro 0), com pausas de leitura, legendas em cartão washi e régua de cinco marcas. Economia de dados ou 2g: quatro quadros em crossfade.</td><td>Quadro final e legendas empilhadas</td></tr>
+        <tr><td>3. Kaze reativo</td><td>Entre seções</td><td>—</td><td>Além de acelerar e inverter, a amplitude da onda cresce com a velocidade e acalma quando a rolagem para (mesmo path, só os y mudam).</td><td>Parado</td></tr>
+        <tr><td>4. Manifesto</td><td>Home (Sobre: versão curta)</td><td>250 vh · 160 vh no Sobre</td><td>Seção sumi: cada palavra passa de nezumi-claro a 25% para washi; a linha da onda se desenha enorme ao fundo; o anel shu se fecha e os pilares entram.</td><td>Texto aceso, onda e anel completos</td></tr>
+        <tr><td>5. Faixa em shu</td><td>Home</td><td>—</td><td>Duas linhas em sentidos opostos; <code>skewX</code> até 8° pela velocidade do scroll.</td><td>Parada</td></tr>
+        <tr><td>6. Como uma composição nasce</td><td>Processo</td><td>400 vh · 240 vh no celular</td><td>As 5 etapas (ativa em sumi, outras em nezumi) com barra shu; o corpo-tela kinari 4:5 se constrói por camadas (contorno, cor, completa) em crossfade.</td><td>Etapas abertas, camadas completas</td></tr>
+        <tr><td>7. Galeria de projetos</td><td>Home</td><td>300 vh</td><td>Cartões 4:5 movidos na horizontal pelo scroll, terminando no cartão shu “Ver todos os projetos”. Cursor “Ver” sobre os cartões.</td><td>Carrossel com scroll-snap (também no celular)</td></tr>
+        <tr><td>8. Rodapé revelado</td><td>Todas as páginas</td><td>Altura do rodapé</td><td>O rodapé shu fica preso embaixo e o conteúdo sobe como cortina; WABORI sobe letra por letra e o símbolo se desenha nas três etapas.</td><td>Estático, no fluxo</td></tr>
+        <tr><td>Sessões</td><td>Estudo de projeto</td><td>Travessia do trilho</td><td>Trilho horizontal pelo scroll, arrastável (cursor “Arrastar”), contador grande em Zen Old Mincho 900 preso no canto.</td><td>Rolagem horizontal nativa</td></tr>
+        <tr><td>Transição de página</td><td>Toda troca de rota</td><td>—</td><td>Painel shu sobe (450 ms, <code>--ease-exit</code>) com o símbolo; a rota troca; sai pelo topo (600 ms, <code>--ease-enter</code>). View Transitions quando houver, Web Animations sem. Foco no h1 e título anunciado.</td><td>Sem painel (foco e anúncio continuam)</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Abaixo de 760 px as cenas presas continuam, mais curtas (cerca de 60% da altura), sem cursor.</p>
+
+    <span class="label" style="margin-top:var(--space-6)">Efeitos de apoio</span>
+    <table>
+      <thead><tr><th>Efeito</th><th>Onde</th><th>Gatilho</th></tr></thead>
+      <tbody>
+        <tr><td>Título linha por linha, subindo por trás de uma máscara</td><td>Capa e títulos de seção</td><td>Carregamento e scroll</td></tr>
+        <tr><td>Blocos entrando de baixo em sequência (80 ms, 44 px)</td><td>Cartões, legendas, linhas, perguntas</td><td>Scroll, uma vez</td></tr>
+        <tr><td>Tinta subindo no botão</td><td>Todos os botões</td><td>Hover e foco</td></tr>
+        <tr><td>Sublinhado que se redesenha</td><td>Links de texto</td><td>Hover e foco</td></tr>
+        <tr><td>Linha em shu e prévia da foto seguindo o cursor</td><td>Lista em /projetos</td><td>Hover (só desktop)</td></tr>
+        <tr><td>Foto revelada por uma cortina de papel</td><td>Fotos de projetos</td><td>Scroll, uma vez</td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>Sempre:</b> as fotos de tatuagem nunca são animadas, distorcidas ou cortadas por efeito (só a máscara de uma transição, que termina com a foto inteira). O símbolo nunca gira. Tudo pausa fora da tela, e em <code>prefers-reduced-motion</code> nada fica preso: conteúdo empilhado e estado final direto.</p>
   </div>
 </section>
 

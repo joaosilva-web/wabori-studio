@@ -1,8 +1,8 @@
-import { useRef } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import { Link } from 'react-router'
 import { content, sectionNumber, sectionPath, type SectionId } from '../content'
-import { useViewProgress } from '../hooks/useViewProgress'
-import { WaboriSymbol } from './Symbol'
+import { useReducedMotion } from '../hooks/useMediaQuery'
+import { CARVE_PATH, SYMBOL_VIEWBOX, useSymbolIds, WAVE_LINE, WAVE_PATH } from './Symbol'
 import { TextLink } from './TextLink'
 import styles from './Footer.module.css'
 
@@ -13,13 +13,64 @@ const links: { section: Exclude<SectionId, 'atelie'>; label: string }[] = [
   { section: 'iniciar', label: nav.cta },
 ]
 
+const WORD = 'WABORI'
+
 /**
- * Rodapé em shu. A palavra WABORI gigante desliza na horizontal com o scroll (±15%);
- * com movimento reduzido fica parada no centro.
+ * Cena 8 — rodapé revelado. O rodapé em shu fica preso embaixo (sticky, bottom 0, abaixo
+ * da superfície da página); o conteúdo sobe e o revela como uma cortina. Com o progresso
+ * da revelação (--r, 0 → 1), WABORI sobe letra por letra e o símbolo washi se desenha
+ * nas três etapas da abertura (contorno, preenchimento, anel).
+ * Só prende se o rodapé couber na tela; com movimento reduzido, tudo no estado final.
  */
 export function Footer() {
   const ref = useRef<HTMLElement>(null)
-  useViewProgress(ref, { start: 1, end: 1, reducedValue: 0.5 })
+  const reduced = useReducedMotion()
+  const ids = useSymbolIds()
+
+  useEffect(() => {
+    const footer = ref.current
+    const surface = footer?.previousElementSibling as HTMLElement | null
+    if (!footer || !surface || reduced) return
+
+    let frame = 0
+    let last = ''
+    let fits = false
+    const update = () => {
+      frame = 0
+      const vh = window.innerHeight
+      const h = footer.offsetHeight
+      fits = h <= vh
+      footer.toggleAttribute('data-reveal', fits)
+      if (!fits) {
+        footer.style.removeProperty('--r')
+        last = ''
+        return
+      }
+      const bottom = surface.getBoundingClientRect().bottom
+      if (bottom > vh + 40 && last === '0.0000') return
+      const r = Math.min(1, Math.max(0, (vh - bottom) / h)).toFixed(4)
+      if (r !== last) {
+        last = r
+        footer.style.setProperty('--r', r)
+      }
+    }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    const ro = new ResizeObserver(schedule)
+    ro.observe(footer)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      ro.disconnect()
+      footer.removeAttribute('data-reveal')
+      footer.style.removeProperty('--r')
+    }
+  }, [reduced])
 
   return (
     <footer ref={ref} className={styles.footer} data-tone="primary" aria-label={footer.label}>
@@ -54,8 +105,26 @@ export function Footer() {
       </div>
 
       <div className={styles.big} aria-hidden="true">
-        <WaboriSymbol className={styles.bigSymbol} size=".8em" />
-        WABORI
+        <svg viewBox={SYMBOL_VIEWBOX} className={styles.bigSymbol} focusable="false">
+          <defs>
+            <clipPath id={ids.clip}>
+              <circle cx="60" cy="60" r="50" />
+            </clipPath>
+          </defs>
+          <g clipPath={`url(#${ids.clip})`}>
+            <path className={styles.fill} fill="currentColor" d={WAVE_PATH} />
+            <path className={styles.line} d={WAVE_LINE} pathLength={1} />
+            <path className={styles.carve} d={CARVE_PATH} pathLength={1} />
+          </g>
+          <circle className={styles.ring} cx="60" cy="60" r="53" pathLength={1} transform="rotate(-90 60 60)" />
+        </svg>
+        <span className={styles.word}>
+          {[...WORD].map((ch, i) => (
+            <span key={i} className={styles.ch} style={{ '--i': i } as CSSProperties}>
+              {ch}
+            </span>
+          ))}
+        </span>
       </div>
 
       <div className={`container-wide ${styles.bottom}`}>

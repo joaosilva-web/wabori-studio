@@ -15,15 +15,16 @@
     <link rel="preload" href="/fonts/zen-old-mincho-900.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/zen-kaku-gothic-new-400.woff2" as="font" type="font/woff2" crossorigin />
     <script>
-      // Antes da pintura: liga as revelações (.js) e decide se a abertura aparece
-      // (só na primeira visita da sessão, nunca com movimento reduzido).
+      // Antes da pintura: liga as revelações (.js) e decide a abertura:
+      // .intro (completa, primeira visita da sessão) · .intro-short (só a íris, 0,6 s) ·
+      // .no-intro (movimento reduzido).
       ;(function () {
         var d = document.documentElement
         d.classList.add('js')
         var seen = false
         try { seen = sessionStorage.getItem('wabori:intro') === '1' } catch (e) {}
         var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-        d.classList.add(seen || reduced ? 'no-intro' : 'intro')
+        d.classList.add(reduced ? 'no-intro' : seen ? 'intro-short' : 'intro')
       })()
     </script>
   </head>

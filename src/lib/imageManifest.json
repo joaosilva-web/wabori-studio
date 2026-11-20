@@ -1,1 +1,58 @@
-{}
+{
+  "site/hero-processo-01-contorno-mobile.jpg": {
+    "src": "/images/site/hero-processo-01-contorno-mobile-576.webp",
+    "width": 576,
+    "height": 720,
+    "avif": "/images/site/hero-processo-01-contorno-mobile-480.avif 480w, /images/site/hero-processo-01-contorno-mobile-576.avif 576w",
+    "webp": "/images/site/hero-processo-01-contorno-mobile-480.webp 480w, /images/site/hero-processo-01-contorno-mobile-576.webp 576w"
+  },
+  "site/hero-processo-01-contorno.jpg": {
+    "src": "/images/site/hero-processo-01-contorno-1280.webp",
+    "width": 1280,
+    "height": 720,
+    "avif": "/images/site/hero-processo-01-contorno-480.avif 480w, /images/site/hero-processo-01-contorno-800.avif 800w, /images/site/hero-processo-01-contorno-1200.avif 1200w, /images/site/hero-processo-01-contorno-1280.avif 1280w",
+    "webp": "/images/site/hero-processo-01-contorno-480.webp 480w, /images/site/hero-processo-01-contorno-800.webp 800w, /images/site/hero-processo-01-contorno-1200.webp 1200w, /images/site/hero-processo-01-contorno-1280.webp 1280w"
+  },
+  "site/hero-processo-02-cor-mobile.jpg": {
+    "src": "/images/site/hero-processo-02-cor-mobile-576.webp",
+    "width": 576,
+    "height": 720,
+    "avif": "/images/site/hero-processo-02-cor-mobile-480.avif 480w, /images/site/hero-processo-02-cor-mobile-576.avif 576w",
+    "webp": "/images/site/hero-processo-02-cor-mobile-480.webp 480w, /images/site/hero-processo-02-cor-mobile-576.webp 576w"
+  },
+  "site/hero-processo-02-cor.jpg": {
+    "src": "/images/site/hero-processo-02-cor-1280.webp",
+    "width": 1280,
+    "height": 720,
+    "avif": "/images/site/hero-processo-02-cor-480.avif 480w, /images/site/hero-processo-02-cor-800.avif 800w, /images/site/hero-processo-02-cor-1200.avif 1200w, /images/site/hero-processo-02-cor-1280.avif 1280w",
+    "webp": "/images/site/hero-processo-02-cor-480.webp 480w, /images/site/hero-processo-02-cor-800.webp 800w, /images/site/hero-processo-02-cor-1200.webp 1200w, /images/site/hero-processo-02-cor-1280.webp 1280w"
+  },
+  "site/hero-processo-03-costas-mobile.jpg": {
+    "src": "/images/site/hero-processo-03-costas-mobile-576.webp",
+    "width": 576,
+    "height": 720,
+    "avif": "/images/site/hero-processo-03-costas-mobile-480.avif 480w, /images/site/hero-processo-03-costas-mobile-576.avif 576w",
+    "webp": "/images/site/hero-processo-03-costas-mobile-480.webp 480w, /images/site/hero-processo-03-costas-mobile-576.webp 576w"
+  },
+  "site/hero-processo-03-costas.jpg": {
+    "src": "/images/site/hero-processo-03-costas-1280.webp",
+    "width": 1280,
+    "height": 720,
+    "avif": "/images/site/hero-processo-03-costas-480.avif 480w, /images/site/hero-processo-03-costas-800.avif 800w, /images/site/hero-processo-03-costas-1200.avif 1200w, /images/site/hero-processo-03-costas-1280.avif 1280w",
+    "webp": "/images/site/hero-processo-03-costas-480.webp 480w, /images/site/hero-processo-03-costas-800.webp 800w, /images/site/hero-processo-03-costas-1200.webp 1200w, /images/site/hero-processo-03-costas-1280.webp 1280w"
+  },
+  "site/hero-processo-04-final-mobile.jpg": {
+    "src": "/images/site/hero-processo-04-final-mobile-576.webp",
+    "width": 576,
+    "height": 720,
+    "avif": "/images/site/hero-processo-04-final-mobile-480.avif 480w, /images/site/hero-processo-04-final-mobile-576.avif 576w",
+    "webp": "/images/site/hero-processo-04-final-mobile-480.webp 480w, /images/site/hero-processo-04-final-mobile-576.webp 576w"
+  },
+  "site/hero-processo-04-final.jpg": {
+    "src": "/images/site/hero-processo-04-final-1280.webp",
+    "width": 1280,
+    "height": 720,
+    "avif": "/images/site/hero-processo-04-final-480.avif 480w, /images/site/hero-processo-04-final-800.avif 800w, /images/site/hero-processo-04-final-1200.avif 1200w, /images/site/hero-processo-04-final-1280.avif 1280w",
+    "webp": "/images/site/hero-processo-04-final-480.webp 480w, /images/site/hero-processo-04-final-800.webp 800w, /images/site/hero-processo-04-final-1200.webp 1200w, /images/site/hero-processo-04-final-1280.webp 1280w"
+  }
+}

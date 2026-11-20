@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, type RefObject } from 'react'
 import { NavLink, useLocation } from 'react-router'
 import { content, sectionNumber, sectionPath, type SectionId } from '../content'
+import { lockScroll } from '../lib/smoothScroll'
 import { Button } from './Button'
 import { WaboriSymbol } from './Symbol'
 import { TextLink } from './TextLink'
@@ -38,10 +39,12 @@ export const MobileMenu = forwardRef<MobileMenuHandle, Props>(function MobileMen
     if (!d) return
     const onClose = () => {
       document.documentElement.style.removeProperty('overflow')
+      lockScroll(false)
       returnFocusRef.current?.focus()
     }
     const onOpen = () => {
       document.documentElement.style.overflow = 'hidden'
+      lockScroll(true)
     }
     // showModal não dispara evento de abertura; observamos o atributo open
     const mo = new MutationObserver(() => (d.open ? onOpen() : undefined))
@@ -59,7 +62,7 @@ export const MobileMenu = forwardRef<MobileMenuHandle, Props>(function MobileMen
   ]
 
   return (
-    <dialog ref={dialogRef} id="menu" className={styles.menu} data-tone="dark" aria-label={nav.label}>
+    <dialog ref={dialogRef} id="menu" data-lenis-prevent className={styles.menu} data-tone="dark" aria-label={nav.label}>
       <div className={styles.inner}>
         <div className={styles.top}>
           <span className={styles.brand} aria-hidden="true">
