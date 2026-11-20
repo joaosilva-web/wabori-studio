@@ -84,13 +84,14 @@ As regras completas estão na seção "(06) Movimento" do design system.
 | 4. Manifesto: palavras que se acendem, onda que se desenha, anel shu (250 vh) | Home e Sobre (160 vh) | `src/components/Manifesto.tsx` |
 | 5. Faixa em shu com inércia (duas linhas, `skewX` pela velocidade) | Home | `src/components/Marquee.tsx` |
 | 6. Como uma composição nasce: etapas e corpo-tela por camadas (400 vh) | Processo | `src/components/CompositionScene.tsx` |
-| 7. Galeria horizontal de projetos (300 vh) + cursor customizado | Home / todo o site | `src/components/FeaturedGallery.tsx`, `src/lib/cursor.ts` |
+| 7. Linha do tempo de projetos presa: painel de abertura, número gigante, foto 4:5, fio com símbolo, barra de progresso (altura dinâmica: 100svh + viagem × 1,5/HOLD) + cursor customizado | Home | `src/components/FeaturedGallery.tsx`, `src/lib/cursor.ts` |
 | 8. Rodapé revelado como cortina | Todas as páginas | `src/components/Footer.tsx` |
 | Sessões: trilho arrastável e contador grande | Estudo de projeto | `src/components/SessionTrack.tsx` |
 | Transição entre páginas (painel shu, View Transitions) | Toda troca de rota | `src/lib/pageTransition.ts` |
 
 Base comum: `src/hooks/useScrollProgress.ts` (progresso 0 → 1 de toda seção presa, escrito em CSS
-variables), `src/lib/scrollVelocity.ts` (velocidade do scroll, um loop só) e `src/lib/smoothScroll.ts`
+variables), `src/hooks/useViewProgress.ts` (0 → 1 de um elemento atravessando a tela, sem pin),
+`src/lib/scrollVelocity.ts` (velocidade do scroll, um loop só) e `src/lib/smoothScroll.ts`
 (Lenis, só no desktop). Em `prefers-reduced-motion`, nada fica preso: conteúdo empilhado e estado final.
 
 ### Coreografias da capa

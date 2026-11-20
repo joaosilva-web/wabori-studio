@@ -159,10 +159,11 @@ export const pt = {
     featured: {
       label: 'Projetos',
       aside: (n: number) => `${String(n).padStart(2, '0')} em destaque`,
-      title: 'Composições inteiras, sessão por sessão.',
+      title: ['Composições inteiras,', 'sessão por sessão.'],
+      scrollHint: 'Role',
+      counterSr: (i: number, n: number) => `Projeto ${i} de ${n}`,
       all: 'Ver todos os projetos',
       allCard: ['Ver todos', 'os projetos'],
-      galleryLabel: 'Projetos em destaque',
     },
     process: {
       label: 'Processo',
