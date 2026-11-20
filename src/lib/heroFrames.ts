@@ -49,3 +49,25 @@ export function imageAt(p: number) {
   if (f > 30) return 2
   return 3
 }
+
+/**
+ * Progresso (0 → 1) dentro do trecho em que p está. Alimenta a barra do cartão ativo,
+ * a "respiração" dele e a paralaxe do numeral gigante.
+ */
+export function segmentProgress(p: number) {
+  const i = stepAt(p)
+  const [p0, p1] = SEGMENTS[i]
+  return p1 > p0 ? Math.min(1, Math.max(0, (p - p0) / (p1 - p0))) : 0
+}
+
+/**
+ * Pontos do corpo para as linhas de chamada dos cartões 01–03, em coordenadas do vídeo
+ * 1280×720. Calibrados sobre os quadros 150 (meio das costas, onde a cor entra), 100 (ombro
+ * esquerdo) e 20 (o braço fechado durante o giro).
+ */
+export const CALLOUT_POINTS: [number, number][] = [
+  [640, 370],
+  [460, 300],
+  [610, 290],
+]
+export const VIDEO_SIZE = { w: 1280, h: 720 }

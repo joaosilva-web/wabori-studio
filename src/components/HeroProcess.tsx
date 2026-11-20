@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
-import { content, pad2, sectionPath } from '../content'
+import { content } from '../content'
 import { MOBILE, REDUCED_MOTION, useReducedMotion } from '../hooks/useMediaQuery'
 import { scrollYForProgress, useScrollProgress } from '../hooks/useScrollProgress'
 import { frameAt, imageAt, MARKS, markAt, stepAt } from '../lib/heroFrames'
@@ -8,7 +8,7 @@ import type { ResponsiveImage } from '../lib/images'
 import { isConstrainedNetwork, whenIdle, whenIntroDone, whenLoaded } from '../lib/intro'
 import { scrollToTarget } from '../lib/smoothScroll'
 import type { Scrubber } from '../lib/videoScrub'
-import { Button } from './Button'
+import { HeroCards, type HeroCardsHandle } from './HeroCards'
 import { WaboriSymbol } from './Symbol'
 import styles from './HeroProcess.module.css'
 
@@ -45,6 +45,7 @@ export function HeroProcess() {
   const stickyRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const scrubRef = useRef<Scrubber | null>(null)
+  const cardsRef = useRef<HeroCardsHandle>(null)
   const progress = useRef(0)
   const visible = useRef(false)
   const modeRef = useRef<Mode>('poster')
@@ -81,6 +82,7 @@ export function HeroProcess() {
         if (i !== imageRef.current) setImage((imageRef.current = i))
       }
       scrubRef.current?.setTarget(frameAt(p))
+      cardsRef.current?.update(p)
     },
     !reduced,
     {
@@ -276,24 +278,7 @@ export function HeroProcess() {
           ))}
         </h1>
 
-        <ol className={styles.captions}>
-          {t.steps.map((s, i) => (
-            <li key={s.label} className={styles.card} data-active={step === i + 1 || undefined}>
-              <span className={styles.num}>{pad2(i + 1)}</span>
-              <span className={`lbl ${styles.cardLabel}`}>{s.label}</span>
-              <p className={styles.cardText}>{s.text}</p>
-            </li>
-          ))}
-          <li className={`${styles.card} ${styles.cta}`} data-active={step === 4 || undefined} onFocus={onFinalFocus}>
-            <p className={styles.ctaTitle}>{t.final}</p>
-            <div className={styles.actions}>
-              <Button href={sectionPath.iniciar}>{t.primary}</Button>
-              <Button href={sectionPath.projetos} variant="secondary">
-                {t.secondary}
-              </Button>
-            </div>
-          </li>
-        </ol>
+        <HeroCards ref={cardsRef} step={step} onFinalFocus={onFinalFocus} />
 
         <nav className={styles.ruler} aria-label={t.ruler.label} style={{ '--marks': MARKS.length } as CSSProperties}>
           <span className={styles.rulerFill} aria-hidden="true" />

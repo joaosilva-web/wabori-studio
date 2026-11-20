@@ -258,70 +258,6 @@
   }
 }
 
-/* ---------- legendas ---------- */
-.captions {
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  right: max(var(--gutter), (100% - var(--container-wide)) / 2);
-  top: 50%;
-  translate: 0 -50%;
-  width: min(380px, 100% - 2 * var(--gutter));
-  display: grid;
-}
-
-.card {
-  grid-area: 1 / 1;
-  align-self: center;
-  display: grid;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-line);
-  border-radius: 0;
-}
-
-/* presas: uma legenda por trecho, com a revelação padrão (sobe 44 px + opacidade) */
-:global(.js) .card {
-  opacity: 0;
-  translate: 0 44px;
-  pointer-events: none;
-  transition:
-    opacity var(--dur-slow) var(--ease-enter),
-    translate var(--dur-slow) var(--ease-enter);
-}
-
-:global(.js) .card[data-active] {
-  opacity: 1;
-  translate: 0 0;
-  pointer-events: auto;
-}
-
-.num {
-  font: 900 var(--text-xl) / 1 var(--font-display);
-  color: var(--color-primary);
-}
-
-.cardLabel {
-  color: var(--color-text);
-}
-
-.cardText {
-  font-size: var(--text-base);
-  line-height: 1.5;
-}
-
-.ctaTitle {
-  font: 900 var(--text-xl) / 1.15 var(--font-display);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-2);
-}
-
 /* ---------- régua ---------- */
 .ruler {
   /* faixa washi: os rótulos ficam legíveis sobre qualquer quadro */
@@ -380,18 +316,6 @@
     bottom: 88px;
     font-size: clamp(2.4rem, 11vw, 3.5rem);
   }
-  .captions {
-    top: auto;
-    translate: none;
-    left: var(--gutter);
-    right: var(--gutter);
-    width: auto;
-    bottom: 64px;
-  }
-  .card {
-    align-self: end;
-    padding: var(--space-3);
-  }
   .media::after {
     background: linear-gradient(0deg, rgb(242 239 234 / .9) 0%, rgb(242 239 234 / .6) 30%, transparent 52%);
   }
@@ -426,22 +350,6 @@
     bottom: auto;
     top: 100svh;
     translate: 0 calc(-100% - 12svh);
-  }
-  .captions {
-    position: relative;
-    inset: auto;
-    translate: none;
-    width: min(100% - 2 * var(--gutter), var(--container-wide));
-    margin: var(--space-5) auto 0;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-3);
-  }
-  .card,
-  :global(.js) .card {
-    grid-area: auto;
-    opacity: 1;
-    translate: none;
-    pointer-events: auto;
   }
   .ruler {
     display: none;
