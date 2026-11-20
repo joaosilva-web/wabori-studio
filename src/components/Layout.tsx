@@ -5,7 +5,7 @@ import { Footer } from './Footer'
 import { Header } from './Header'
 import { Intro } from './Intro'
 
-/** Moldura de todas as páginas: abertura, header fixo, conteúdo, convite final e rodapé. */
+/** Moldura de todas as páginas: abertura, header fixo, conteúdo, convite final e rodapé revelado. */
 export function Layout() {
   const { pathname } = useLocation()
   const showCta = pathname !== sectionPath.iniciar && !pathname.startsWith('/dev/')
@@ -17,10 +17,13 @@ export function Layout() {
         {content.nav.skip}
       </a>
       <Header />
-      <main id="conteudo" tabIndex={-1} style={{ paddingTop: 'var(--header-h)', outline: 'none' }}>
-        <Outlet />
-      </main>
-      {showCta && <CtaBlock />}
+      {/* a superfície corre por cima do rodapé e, ao subir, revela o rodapé preso embaixo */}
+      <div className="surface">
+        <main id="conteudo" tabIndex={-1} style={{ paddingTop: 'var(--header-h)', outline: 'none' }}>
+          <Outlet />
+        </main>
+        {showCta && <CtaBlock />}
+      </div>
       <Footer />
       <Intro />
     </>

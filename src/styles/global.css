@@ -171,6 +171,13 @@ html.lenis.lenis-smooth [data-lenis-prevent] {
   }
 }
 
+/* conteúdo da página: fica acima do rodapé preso (Cena 8) e o cobre até o fim */
+.surface {
+  position: relative;
+  z-index: 1;
+  background: var(--color-bg);
+}
+
 /* ---------- utilitários ---------- */
 .lbl {
   font-family: var(--font-body);
