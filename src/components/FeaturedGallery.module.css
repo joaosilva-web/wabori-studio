@@ -316,20 +316,27 @@
   content: none;
 }
 
+/* --final-w: largura do cartão final. Nunca menor que 260 px: com a tela baixa, --photo-h cai
+   para ~270 px e o cartão ficava com 216 px, estreito demais para "Ver todos os projetos" */
 .finalCard {
+  --final-w: max(260px, calc(var(--photo-h) * 4 / 5));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: var(--photo-h);
-  width: calc(var(--photo-h) * 4 / 5);
-  padding: var(--space-5);
+  gap: var(--space-4);
+  /* min-height, não height: o texto nunca é cortado embaixo */
+  min-height: var(--photo-h);
+  width: var(--final-w);
+  padding: var(--space-4);
   background: var(--color-primary);
   color: var(--color-on-primary, #f2efea);
   text-decoration: none;
 }
 
+/* tamanho pela largura do cartão (≈ 1/7), com teto no --text-2xl:
+   "os projetos" cabe numa linha e o texto não quebra palavra por palavra */
 .finalText {
-  font: 900 var(--text-2xl) / 1.05 var(--font-display);
+  font: 900 min(var(--text-2xl), calc(var(--final-w) / 7)) / 1.05 var(--font-display);
 }
 
 .finalText span {
@@ -337,7 +344,7 @@
 }
 
 .finalArrow {
-  font: 900 var(--text-2xl) / 1 var(--font-display);
+  font: 900 min(var(--text-2xl), calc(var(--final-w) / 7)) / 1 var(--font-display);
   transition: translate var(--dur) var(--ease-enter);
 }
 
@@ -501,6 +508,21 @@
   left: -9px;
 }
 
+/*
+ * Painel final no modo preso.
+ * - Topo: o painel não tem a linha do número, então descia até o meio dos metadados e cruzava o fio.
+ *   O recuo é a altura dessa linha (número com line-height .86 + margem), e o cartão fica alinhado às fotos.
+ * - Largura: herdava os 64vw das etapas e deixava um vazio à direita; no fim do trilho o cartão parava
+ *   à esquerda do centro. Agora a etapa termina de modo que, em p = 1, o cartão fique centralizado.
+ */
+.gallery[data-pinned] .finalStep {
+  --final-w: max(260px, calc(var(--photo-h) * 4 / 5));
+  /* o mesmo recuo do trilho (padding-inline do .rail) */
+  width: calc(50vw + var(--final-w) / 2 - max(var(--gutter), (100vw - var(--container-wide)) / 2));
+  padding-right: 0;
+  padding-top: calc(var(--num) * 0.86 + var(--space-3));
+}
+
 /* ================================================================
  * Mobile
  * ================================================================ */
@@ -516,9 +538,10 @@
   }
 
   .finalCard {
+    --final-w: calc(100vw - 2 * var(--gutter) - var(--space-10));
     width: 100%;
     aspect-ratio: 4 / 5;
-    height: auto;
+    min-height: 0;
   }
 
   .facts {
