@@ -8,15 +8,16 @@ import { Projects } from './pages/Projects'
 import { Process } from './pages/Process'
 import { ProjectStudy } from './pages/ProjectStudy'
 import { StartProject } from './pages/StartProject'
+import { scrollToTop } from './lib/smoothScroll'
 
 // Só em desenvolvimento: o import some do build de produção
 const DevComponents = import.meta.env.DEV ? lazy(() => import('./pages/DevComponents')) : null
 
-/** Nova rota começa do topo (sem rolagem com inércia). */
+/** Nova rota começa do topo, na hora (com Lenis: lenis.scrollTo(0, { immediate: true })). */
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    scrollToTop()
   }, [pathname])
   return null
 }

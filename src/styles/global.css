@@ -14,6 +14,7 @@
 
 html {
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -71,6 +72,23 @@ fieldset {
   border: 0;
   padding: 0;
   min-width: 0;
+}
+
+/* ---------- Lenis (rolagem suave, só desktop) ----------
+ * O Lenis rola a própria janela: nada de wrapper com overflow: hidden.
+ * Com ele ativo, o scroll-behavior nativo sai (o Lenis já suaviza). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis {
+  scroll-behavior: auto;
+}
+html.lenis.lenis-stopped {
+  overflow: clip;
+}
+html.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
 /* ---------- tons ----------------------------------------------------------
@@ -212,6 +230,9 @@ fieldset {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
