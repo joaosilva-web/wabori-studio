@@ -1,0 +1,225 @@
+@import './fonts.css';
+@import './tokens.css';
+
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  /* ancestrais com overflow-x: clip (e não hidden) mantêm o sticky funcionando */
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: .005em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+/* ---------- tons ----------------------------------------------------------
+ * Cada seção declara data-tone; os componentes leem só estas variáveis.
+ * light = washi · dark = sumi · primary = shu · warm = kinari
+ * ------------------------------------------------------------------------ */
+:root,
+[data-tone='light'] {
+  --tone-bg: var(--color-bg);
+  --tone-fg: var(--color-text);
+  --tone-muted: var(--color-text-muted);
+  --tone-line: var(--color-line);
+  --tone-accent: var(--color-primary);   /* número de seção, sublinhado */
+  --focus: var(--color-primary);
+}
+
+[data-tone='dark'] {
+  --tone-bg: var(--color-inverse-bg);
+  --tone-fg: var(--color-inverse-text);
+  --tone-muted: var(--color-inverse-muted);
+  --tone-line: var(--color-inverse-text);
+  --tone-accent: var(--color-inverse-text); /* shu sobre sumi é proibido (2,1:1) */
+  --focus: var(--color-rare);               /* o único lugar do ōdo */
+}
+
+[data-tone='primary'] {
+  --tone-bg: var(--color-primary);
+  --tone-fg: var(--color-on-primary);
+  --tone-muted: var(--color-on-primary);
+  --tone-line: var(--color-on-primary);
+  --tone-accent: var(--color-on-primary);
+  --focus: var(--color-on-primary);
+}
+
+[data-tone='warm'] {
+  --tone-bg: var(--color-warm);
+  --tone-fg: var(--color-text);
+  --tone-muted: var(--color-text);          /* nezumi sobre kinari = 4,3:1, abaixo do AA */
+  --tone-line: var(--color-line);
+  --tone-accent: var(--color-primary);
+  --focus: var(--color-primary);
+}
+
+[data-tone] {
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* ---------- layout ---------- */
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.container-wide {
+  width: min(100% - 2 * var(--gutter), var(--container-wide));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--space-7);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --gutter: 20px;
+  }
+  .section {
+    padding-block: var(--space-6);
+  }
+}
+
+/* ---------- utilitários ---------- */
+.lbl {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--tone-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--space-3);
+  top: var(--space-3);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  translate: 0 -200%;
+}
+.skip-link:focus-visible {
+  translate: 0 0;
+  outline-color: var(--color-text);
+}
+
+/* ---------- revelação no scroll ---------------------------------------------
+ * Estado inicial só com JS (classe .js posta antes da pintura em index.html).
+ * Nunca usar clip-path aqui: o IntersectionObserver veria área zero.
+ * -------------------------------------------------------------------------- */
+.js [data-rv] {
+  opacity: 0;
+  translate: 0 44px;
+  transition:
+    opacity var(--dur-slow) var(--ease-enter),
+    translate var(--dur-slow) var(--ease-enter);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.js [data-rv][data-in] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .js [data-rv] {
+    opacity: 1;
+    translate: none;
+  }
+}

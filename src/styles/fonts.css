@@ -1,0 +1,34 @@
+/*
+ * Fontes auto-hospedadas (public/fonts, cache imutável via vercel.json).
+ * Subset: latim, macrons (ō, ū), pontuação e os caracteres japoneses do site.
+ * Para acrescentar caracteres, rode de novo o subset (ver README).
+ * Licença: SIL Open Font License 1.1 — public/fonts/OFL-*.txt
+ */
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/zen-old-mincho-900.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/zen-kaku-gothic-new-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/zen-kaku-gothic-new-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/zen-kaku-gothic-new-700.woff2') format('woff2');
+}

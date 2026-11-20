@@ -1,0 +1,70 @@
+/*
+ * Tokens do Wabori — v1 (nov/2026)
+ * Fonte de verdade: docs/Wabori — Design System.html
+ * Componentes usam só os papéis (--color-*), nunca o hex.
+ */
+:root {
+  /* paleta */
+  --sumi: #353A47;         /* tinta azulada: texto, símbolo, seções escuras */
+  --washi: #F2EFEA;        /* papel: fundo */
+  --shu: #C23B22;          /* vermelho de carimbo: COR DA MARCA */
+  --kinari: #E2DACB;       /* papel cru: placeholders e fundo das fotos */
+  --nezumi: #5E6372;       /* texto secundário sobre washi */
+  --nezumi-claro: #B7BBC6; /* texto secundário sobre sumi */
+  --odo: #D3A453;          /* ocre: SÓ contorno de foco nas seções sumi */
+  --sumi-2: #4A5164;       /* Kaze tom sobre tom em sumi */
+  --kinari-2: #D6CCBA;     /* Kaze tom sobre tom em kinari */
+
+  /* papéis */
+  --color-bg: var(--washi);
+  --color-text: var(--sumi);
+  --color-text-muted: var(--nezumi);
+  --color-primary: var(--shu);
+  --color-on-primary: var(--washi);
+  --color-accent: var(--shu);
+  --color-warm: var(--kinari);
+  --color-rare: var(--odo);
+  --color-inverse-bg: var(--sumi);
+  --color-inverse-text: var(--washi);
+  --color-inverse-muted: var(--nezumi-claro);
+  --color-border: rgb(53 58 71 / .2);
+  --color-line: var(--sumi);
+  --color-kaze: var(--sumi-2);
+  --color-kaze-warm: var(--kinari-2);
+
+  --font-display: 'Zen Old Mincho', 'Noto Serif JP', serif; /* sempre 900 */
+  --font-body: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
+
+  --text-xs: .75rem;
+  --text-sm: .875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --text-2xl: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --text-hero: clamp(2.75rem, 1.4rem + 5.4vw, 6rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  --container: 1200px;
+  --container-wide: 1680px;
+  --gutter: 24px;
+  --radius-0: 0;
+  --radius-sm: 2px;
+  --radius-full: 9999px;
+
+  --ease: cubic-bezier(.25, .1, .25, 1);
+  --ease-enter: cubic-bezier(.16, 1, .3, 1);
+  --ease-exit: cubic-bezier(.7, 0, .84, 0);
+  --ease-ink: cubic-bezier(.65, 0, .35, 1);
+  --dur-fast: 200ms;
+  --dur: 450ms;
+  --dur-slow: 900ms;
+
+  --header-h: 72px;
+}

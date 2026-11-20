@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--seo-->
+    <title>Wabori — Tatuagem japonesa tradicional em Maringá</title>
+    <meta name="description" content="Ateliê de tatuagem japonesa tradicional em Maringá, PR. Projetos de grande escala: braço fechado, costas, perna e bodysuit. Somente com hora marcada." />
+    <!--/seo-->
+    <meta name="theme-color" content="#F2EFEA" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preload" href="/fonts/zen-old-mincho-900.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/zen-kaku-gothic-new-400.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      // Antes da pintura: liga as revelações (.js) e decide se a abertura aparece
+      // (só na primeira visita da sessão, nunca com movimento reduzido).
+      ;(function () {
+        var d = document.documentElement
+        d.classList.add('js')
+        var seen = false
+        try { seen = sessionStorage.getItem('wabori:intro') === '1' } catch (e) {}
+        var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+        d.classList.add(seen || reduced ? 'no-intro' : 'intro')
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"><!--app--></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
