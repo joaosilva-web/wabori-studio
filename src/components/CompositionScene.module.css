@@ -63,7 +63,14 @@
   grid-template-columns: 4.5rem minmax(0, 1fr);
   column-gap: var(--space-3);
   align-items: baseline;
-  color: color-mix(in srgb, var(--nezumi) 40%, transparent);
+  /* inativa: numeral em nezumi a 40% (decorativo); o título a 76%, o mínimo para 3:1
+     (texto grande) sobre washi — a 40% ele ficaria em 1,75:1 */
+  color: color-mix(in srgb, var(--nezumi) 76%, var(--washi));
+  transition: color var(--dur) var(--ease);
+}
+
+.step .num {
+  color: color-mix(in srgb, var(--nezumi) 40%, var(--washi));
   transition: color var(--dur) var(--ease);
 }
 
@@ -169,8 +176,9 @@
   .num {
     font-size: var(--text-lg);
   }
+  /* 20 px em 900 é "texto grande" (≥ 18,66 px em negrito): o título inativo passa com 3:1 */
   .title {
-    font-size: var(--text-lg);
+    font-size: 1.25rem;
   }
 }
 
