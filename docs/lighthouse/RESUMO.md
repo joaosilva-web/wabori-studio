@@ -42,3 +42,15 @@ Chrome 1440×900, Lenis ativo, wheel de 100 px a cada 16 ms do topo ao rodapé (
 Num desktop comum não há queda perceptível. Com a CPU 4× mais lenta (um notebook fraco), cerca de 1 em
 cada 6 quadros passa de 25 ms durante a rolagem rápida. Se isso aparecer em aparelhos reais, os primeiros
 candidatos são o manifesto (recalcula a cor de cada palavra a cada quadro) e a busca do vídeo.
+
+## Home depois das coreografias da capa (título, header, cartões)
+
+Cinco rodadas seguidas, mesma configuração: desempenho 96, 95, 98, 97, 95 (mediana 97), LCP 2,1–2,2 s,
+TBT 70–180 ms, **CLS 0**. O relatório da rodada mediana está em `home.html`.
+
+- O CLS chegou a 0,0001–0,005 antes da correção: a troca de fonte da Zen Kaku 700 (header, rótulos,
+  botões) deslocava o header. A 700 agora é pré-carregada (12 KB), como a 400 e a Mincho 900.
+- A primeira versão dos cartões pesou na hidratação (DOM de 639 para 923 nós, TBT até 288 ms). O odômetro
+  virou texto e a medição das linhas de chamada saiu da hidratação: DOM com 818 nós.
+- A meta (acima de 95, CLS 0) é cumprida com pouca folga: o TBT da home ficou mais alto que antes
+  (34–83 ms). Se cair abaixo de 95 em produção, o próximo corte é o rótulo letra por letra dos cartões.

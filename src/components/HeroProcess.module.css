@@ -87,104 +87,175 @@
   color: var(--color-primary);
 }
 
+/*
+ * Título que se monta. t = 0 quando a abertura sai (o header começa 150 ms antes: --t0).
+ * --T escala todos os tempos: 1 na primeira visita, .6 nas seguintes (sem abertura).
+ * Entrada: animações em transform/clip-path. Saída pelo scroll (p .10 → .20): translate/scale
+ * derivados de --out, cada fragmento para o lado de onde veio, com o seu multiplicador.
+ */
 .title {
-  --out: clamp(0, (var(--p, 0) - .1) / .08, 1);
+  --t0: 150ms;
+  --T: 1;
+  --hx: 1;
+  --out: clamp(0, (var(--p, 0) - .1) / .1, 1);
+  --out-late: clamp(0, (var(--p, 0) - .16) / .04, 1);
   position: absolute;
   left: max(var(--gutter), (100% - var(--container-wide)) / 2);
   bottom: 18svh;
   font-size: var(--text-hero);
   line-height: .98;
   color: var(--color-text);
-  /* sai subindo e perdendo opacidade entre p 0,10 e 0,18 */
-  opacity: calc(1 - var(--out));
-  translate: 0 calc(var(--out) * -64px);
+}
+
+:global(html.intro-short) .title {
+  --T: .6;
 }
 
 .line {
   display: block;
-  overflow: hidden;
-  padding-bottom: .08em;
+  white-space: nowrap;
 }
 
-.tx {
-  display: block;
-  animation: lineUp 1.1s var(--ease-enter) both;
-  animation-delay: calc(.2s + var(--i) * 140ms);
+.mask {
+  display: inline-block;
+  overflow: clip;
+  padding-bottom: .08em;
+  vertical-align: bottom;
+}
+
+.frag {
+  display: inline-block;
+  animation-fill-mode: both;
+  animation-timing-function: var(--ease-enter);
+}
+
+/* "O corpo": da esquerda, numa máscara que abre da esquerda para a direita */
+.frag[data-from='left'] {
+  animation-name: fromLeft;
+  animation-duration: calc(1100ms * var(--T));
+  animation-delay: calc(var(--t0) + 0ms * var(--T));
+  translate: calc(var(--out) * -1.4 * 30vw * var(--hx)) 0;
+  opacity: calc(1 - var(--out));
+}
+
+/* "inteiro": de baixo, por trás da máscara da linha */
+.frag[data-from='below'] {
+  animation-name: fromBelow;
+  animation-duration: calc(1000ms * var(--T));
+  animation-delay: calc(var(--t0) + 180ms * var(--T));
+  translate: 0 calc(var(--out) * .8 * 120%);
+  opacity: calc(1 - var(--out));
+}
+
+/* "como": de cima */
+.frag[data-from='above'] {
+  animation-name: fromAbove;
+  animation-duration: calc(900ms * var(--T));
+  animation-delay: calc(var(--t0) + 420ms * var(--T));
+  translate: 0 calc(var(--out) * -1.1 * 120%);
+  opacity: calc(1 - var(--out));
+}
+
+/* "composição": desliza da direita enquanto cada letra sobe */
+.frag[data-from='right'] {
+  animation-name: fromRight;
+  animation-duration: calc(1100ms * var(--T));
+  animation-delay: calc(var(--t0) + 560ms * var(--T));
+  translate: calc(var(--out) * 1.6 * 30vw * var(--hx)) 0;
+  opacity: calc(1 - var(--out) * 1.3);
+}
+
+.ch {
+  display: inline-block;
+  animation: chUp calc(700ms * var(--T)) var(--ease-enter) both;
+  animation-delay: calc(var(--t0) + (560ms + var(--k) * 28ms) * var(--T));
+}
+
+/* ".": carimbo em shu (sobre o véu washi: 4,9:1) */
+.frag[data-from='stamp'] {
+  position: relative;
+  /* fora da máscara: alinha como os fragmentos mascarados */
+  vertical-align: bottom;
+  padding-bottom: .08em;
+  color: var(--color-primary);
+  transform-origin: 50% 80%;
+  animation-name: stamp;
+  animation-duration: calc(320ms * var(--T));
+  animation-timing-function: var(--ease-exit);
+  animation-delay: calc(var(--t0) + 1500ms * var(--T));
+  scale: calc(1 - var(--out-late));
+}
+
+.frag[data-from='stamp']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: .14em;
+  width: .3em;
+  height: .3em;
+  margin-left: -.15em;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: stampRing calc(500ms * var(--T)) var(--ease-enter) calc(var(--t0) + 1580ms * var(--T)) both;
 }
 
 /* enquanto a abertura cobre a página, o título espera */
-:global(html.intro:not([data-intro='out'])) .tx {
+:global(html.intro:not([data-intro='out'])) .title *,
+:global(html.intro:not([data-intro='out'])) .title *::after {
   animation-play-state: paused;
 }
 
-@keyframes lineUp {
+@keyframes fromLeft {
+  from {
+    transform: translateX(calc(-28vw * var(--hx)));
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 -.2em 0 0);
+  }
+}
+
+@keyframes fromBelow {
   from {
     transform: translateY(110%);
   }
 }
 
-/* ---------- legendas ---------- */
-.captions {
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  right: max(var(--gutter), (100% - var(--container-wide)) / 2);
-  top: 50%;
-  translate: 0 -50%;
-  width: min(380px, 100% - 2 * var(--gutter));
-  display: grid;
+@keyframes fromAbove {
+  from {
+    transform: translateY(-110%);
+  }
 }
 
-.card {
-  grid-area: 1 / 1;
-  align-self: center;
-  display: grid;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-line);
-  border-radius: 0;
+@keyframes fromRight {
+  from {
+    transform: translateX(calc(12vw * var(--hx)));
+  }
 }
 
-/* presas: uma legenda por trecho, com a revelação padrão (sobe 44 px + opacidade) */
-:global(.js) .card {
-  opacity: 0;
-  translate: 0 44px;
-  pointer-events: none;
-  transition:
-    opacity var(--dur-slow) var(--ease-enter),
-    translate var(--dur-slow) var(--ease-enter);
+@keyframes chUp {
+  from {
+    transform: translateY(100%);
+  }
 }
 
-:global(.js) .card[data-active] {
-  opacity: 1;
-  translate: 0 0;
-  pointer-events: auto;
+@keyframes stamp {
+  from {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
-.num {
-  font: 900 var(--text-xl) / 1 var(--font-display);
-  color: var(--color-primary);
-}
-
-.cardLabel {
-  color: var(--color-text);
-}
-
-.cardText {
-  font-size: var(--text-base);
-  line-height: 1.5;
-}
-
-.ctaTitle {
-  font: 900 var(--text-xl) / 1.15 var(--font-display);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-2);
+@keyframes stampRing {
+  0% {
+    opacity: 1;
+    transform: scale(.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
 }
 
 /* ---------- régua ---------- */
@@ -241,20 +312,9 @@
     height: 350vh;
   }
   .title {
+    --hx: .5;
     bottom: 88px;
     font-size: clamp(2.4rem, 11vw, 3.5rem);
-  }
-  .captions {
-    top: auto;
-    translate: none;
-    left: var(--gutter);
-    right: var(--gutter);
-    width: auto;
-    bottom: 64px;
-  }
-  .card {
-    align-self: end;
-    padding: var(--space-3);
   }
   .media::after {
     background: linear-gradient(0deg, rgb(242 239 234 / .9) 0%, rgb(242 239 234 / .6) 30%, transparent 52%);
@@ -289,24 +349,7 @@
   .title {
     bottom: auto;
     top: 100svh;
-    opacity: 1;
     translate: 0 calc(-100% - 12svh);
-  }
-  .captions {
-    position: relative;
-    inset: auto;
-    translate: none;
-    width: min(100% - 2 * var(--gutter), var(--container-wide));
-    margin: var(--space-5) auto 0;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-3);
-  }
-  .card,
-  :global(.js) .card {
-    grid-area: auto;
-    opacity: 1;
-    translate: none;
-    pointer-events: auto;
   }
   .ruler {
     display: none;

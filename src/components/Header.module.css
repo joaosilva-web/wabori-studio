@@ -1,22 +1,67 @@
+/*
+ * Header. Coreografia de entrada (t = 0 aqui = 150 ms antes do título da capa):
+ *   0 ms fio · 150 símbolo · 350 WABORI (40 ms/letra) · 530 links (70 ms cada, número +120)
+ *   · 530 botão Menu · 790 Iniciar um projeto.
+ * --T = 1 na primeira visita, .6 nas seguintes. Só transform, opacity e clip-path:
+ * o header é clicável e focável desde o primeiro instante.
+ */
 .header {
+  --T: 1;
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
   background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-  border-bottom: 1px solid var(--color-line);
   transition:
     background-color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease);
+    translate 600ms var(--ease-enter);
 }
 
-/* sobre a capa em vídeo: transparente, sem fio; volta ao washi translúcido depois */
+:global(html.intro-short) .header {
+  --T: .6;
+}
+
+/* some ao descer (depois da capa), volta ao subir; nunca com foco dentro ou menu aberto */
+.header[data-hidden]:not(:focus-within) {
+  translate: 0 -100%;
+  transition:
+    background-color var(--dur) var(--ease),
+    translate 450ms var(--ease-exit);
+}
+
+:global(html:has(dialog[open])) .header {
+  translate: none;
+}
+
+/* fio inferior: se desenha da esquerda para a direita */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-line);
+  transform-origin: left;
+  animation: draw calc(900ms * var(--T)) var(--ease-ink) backwards;
+  transition: transform 900ms var(--ease-ink);
+}
+
+/* sobre a capa: transparente, sem fio; ao sair dela o fio se desenha de novo */
 :global(html[data-over-hero]) .header {
   background: transparent;
-  border-bottom-color: transparent;
+}
+
+:global(html[data-over-hero]) .header::after {
+  transform: scaleX(0);
+  transition: none;
 }
 
 :global(html[data-over-hero]) .link {
   color: var(--color-text);
+}
+
+/* enquanto a abertura cobre a página, tudo espera */
+:global(html.intro:not([data-intro='out'])) .header *,
+:global(html.intro:not([data-intro='out'])) .header::after {
+  animation-play-state: paused;
 }
 
 .bar {
@@ -39,14 +84,41 @@
   text-decoration: none;
 }
 
+/* ---------- símbolo: o anel se desenha e a onda aparece (a abertura em miniatura) ---------- */
 .symbol {
+  width: 1.38em;
+  height: 1.38em;
+  flex: none;
   color: var(--color-primary);
 }
 
+.ring {
+  stroke-dasharray: 1;
+  animation: ringDraw calc(500ms * var(--T)) var(--ease-ink) calc(150ms * var(--T)) backwards;
+}
+
+.wave {
+  animation: fadeIn calc(300ms * var(--T)) var(--ease) calc(550ms * var(--T)) backwards;
+}
+
+/* ---------- WABORI: letra por letra, descendo por trás de uma máscara ---------- */
 .word {
+  display: inline-flex;
   text-box: trim-both cap alphabetic;
 }
 
+.letterMask {
+  display: inline-block;
+  overflow: clip;
+}
+
+.letter {
+  display: inline-block;
+  animation: fromAbove calc(600ms * var(--T)) var(--ease-enter) backwards;
+  animation-delay: calc((350ms + var(--i) * 40ms) * var(--T));
+}
+
+/* ---------- links ---------- */
 .nav {
   margin-left: auto;
 }
@@ -56,6 +128,11 @@
   gap: var(--space-4);
   list-style: none;
   padding: 0;
+}
+
+.item {
+  animation: fromRight calc(700ms * var(--T)) var(--ease-enter) backwards;
+  animation-delay: calc((530ms + var(--i) * 70ms) * var(--T));
 }
 
 .link {
@@ -75,6 +152,17 @@
   margin-right: .35em;
   font-size: .75em;
   color: var(--color-primary);
+  transition: translate var(--dur-fast) var(--ease);
+  animation: fromAboveSmall calc(500ms * var(--T)) var(--ease-enter) backwards;
+  animation-delay: calc((650ms + var(--i) * 70ms) * var(--T));
+}
+
+/* sublinhado shu que se desenha (o mesmo "draw" do TextLink) */
+.linkText {
+  background: linear-gradient(var(--color-primary), var(--color-primary)) left calc(100% + .5em) / 0 1.5px no-repeat;
+  padding-bottom: .5em;
+  margin-bottom: -.5em;
+  transition: background-size var(--dur-slow) var(--ease-ink);
 }
 
 .link:hover,
@@ -82,22 +170,33 @@
   color: var(--color-text);
 }
 
-.link[aria-current='page'] {
-  text-decoration: underline;
-  text-decoration-color: var(--color-primary);
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: .5em;
+.link:hover sup,
+.link:focus-visible sup {
+  translate: 0 -2px;
 }
 
+.link:hover .linkText,
+.link:focus-visible .linkText,
+.link[aria-current='page'] .linkText {
+  background-size: 100% 1.5px;
+}
+
+/* ---------- ações ---------- */
 .actions {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
+/* o botão é revelado como no hover: a tinta sobe da base, o texto vem depois */
 .cta {
   padding: .85em 1.3em;
   font-size: var(--text-xs);
+  animation: inkUp calc(450ms * var(--T)) var(--ease-enter) calc(790ms * var(--T)) backwards;
+}
+
+.cta > * {
+  animation: fadeIn calc(300ms * var(--T)) var(--ease) calc(1040ms * var(--T)) backwards;
 }
 
 .toggle {
@@ -115,10 +214,68 @@
   text-transform: uppercase;
 }
 
+/* as duas linhas do Menu crescem do centro */
 .toggleLines {
   width: 16px;
   height: 7px;
   border-block: 1.5px solid currentColor;
+  animation: growX calc(500ms * var(--T)) var(--ease-enter) calc(530ms * var(--T)) backwards;
+}
+
+@keyframes draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes ringDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fromAbove {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes fromAboveSmall {
+  from {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+}
+
+@keyframes fromRight {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
+
+@keyframes inkUp {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes growX {
+  from {
+    transform: scaleX(0);
+  }
 }
 
 @media (max-width: 900px) {

@@ -1,0 +1,385 @@
+/*
+ * Cartões da capa — anotações sobre o corpo.
+ * Estado natural = estado final (é o que aparece em movimento reduzido e sem JS).
+ * Os estados escondidos só existem com JS e movimento liberado, em :not([data-active]).
+ * Entrada (transições ao ganhar data-active), depois de --E (a saída do anterior):
+ *   0 borda (600) · 0 numeral gigante · 250 fundo sobe (450) · 250 odômetro (500)
+ *   · 450 rótulo letra por letra (25 ms) e texto palavra por palavra (18 ms)
+ *   · 300 linha de chamada (700) · 1000 ponto no corpo.
+ * Saída: 300 ms, --ease-exit; tudo volta ao começo só depois disso.
+ */
+.cards {
+  --E: 300ms;
+  --breathe: -24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.card {
+  position: absolute;
+  width: min(360px, 100% - 2 * var(--gutter));
+  isolation: isolate;
+  pointer-events: auto;
+  --gx: max(var(--gutter), (100% - var(--container-wide)) / 2);
+}
+
+/* lugares no desktop: alternando os lados, nunca no centro das costas */
+.card[data-pos='1'] {
+  right: var(--gx);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.card[data-pos='2'] {
+  left: var(--gx);
+  top: 30%;
+}
+
+.card[data-pos='3'] {
+  right: var(--gx);
+  top: max(18%, var(--header-h) + 72px);
+}
+
+.card[data-pos='4'] {
+  left: var(--gx);
+  bottom: max(14%, 72px);
+  width: min(460px, 100% - 2 * var(--gutter));
+}
+
+/* ---------- a folha ---------- */
+.sheet {
+  position: relative;
+  padding: var(--space-4);
+  /* respira com o scroll: sobe ao longo do trecho */
+  translate: 0 calc(var(--sp, 0) * var(--breathe));
+}
+
+.border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* a borda começa no canto mais perto do ponto do corpo: nos cartões da esquerda, espelhada */
+.card[data-side='left'] .border {
+  scale: -1 1;
+}
+
+.border rect {
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 600ms var(--ease-ink) var(--E);
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg);
+  clip-path: inset(0);
+  transition: clip-path 450ms var(--ease-enter) calc(var(--E) + 250ms);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-2);
+  transition:
+    opacity 0s var(--E),
+    translate 0s var(--E);
+}
+
+/* ---------- número em odômetro ---------- */
+.num {
+  display: inline-flex;
+  font: 900 var(--text-xl) / 1 var(--font-display);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.digit {
+  display: inline-block;
+  height: 1em;
+  overflow: clip;
+}
+
+.reel {
+  display: block;
+  white-space: pre;
+  line-height: 1;
+  translate: 0 calc(var(--d) * -1em);
+  transition: translate 500ms var(--ease-enter) calc(var(--E) + 250ms);
+}
+
+/* ---------- rótulo letra por letra, texto palavra por palavra ---------- */
+.label {
+  display: flex;
+  overflow: clip;
+  color: var(--color-text);
+}
+
+.ch {
+  display: inline-block;
+  transition: translate 500ms var(--ease-enter) calc(var(--E) + 450ms + var(--k) * 25ms);
+}
+
+.text {
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.word {
+  display: inline-block;
+  transition:
+    translate 500ms var(--ease-enter) calc(var(--E) + 450ms + var(--k) * 18ms),
+    opacity 500ms var(--ease) calc(var(--E) + 450ms + var(--k) * 18ms);
+}
+
+/* ---------- barra de progresso do trecho ---------- */
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 2;
+  background: var(--color-primary);
+  transform-origin: left;
+  transform: scaleX(var(--sp, 0));
+  transition: opacity 300ms var(--ease) var(--E);
+}
+
+/* ---------- numeral gigante atrás do cartão, em paralaxe mais lenta ---------- */
+.giant {
+  position: absolute;
+  z-index: -1;
+  top: -.42em;
+  left: -.12em;
+  font: 900 clamp(9rem, 6rem + 6vw, 15rem) / 1 var(--font-display);
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(53 58 71 / .25);
+  pointer-events: none;
+  user-select: none;
+  /* o cartão sobe 24 px no trecho; o numeral, só 12: fica para trás */
+  translate: 0 calc(var(--sp, 0) * -12px);
+  transition: opacity 600ms var(--ease) var(--E);
+}
+
+.card[data-side='right'] .giant {
+  left: auto;
+  right: -.12em;
+}
+
+/* ---------- chamada final ---------- */
+.finalTitle {
+  font: 900 var(--text-2xl) / 1.1 var(--font-display);
+  /* reserva as duas linhas: a troca da fonte não empurra os botões (CLS 0) */
+  min-height: 2.2em;
+}
+
+.rule {
+  display: block;
+  height: 2px;
+  background: var(--color-primary);
+  transform-origin: left;
+  transition: transform 800ms var(--ease-ink) calc(var(--E) + 700ms);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  transition:
+    opacity 500ms var(--ease) calc(var(--E) + 1400ms),
+    translate 500ms var(--ease-enter) calc(var(--E) + 1400ms);
+}
+
+/* ---------- linhas de chamada ---------- */
+.callouts {
+  --E: 300ms;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.callout path {
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 200ms var(--ease-exit);
+}
+
+.callout[data-active] path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 700ms var(--ease-ink) calc(var(--E) + 300ms);
+}
+
+.callout[data-off] {
+  display: none;
+}
+
+.dot,
+.pulse {
+  fill: var(--color-bg);
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+}
+
+.pulse {
+  fill: none;
+}
+
+.callout[data-active] .dot {
+  opacity: 1;
+  transition: opacity 300ms var(--ease) calc(var(--E) + 1000ms);
+}
+
+.callout[data-active] .pulse {
+  animation: pulse 2.4s var(--ease-enter) calc(var(--E) + 1000ms) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: .9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+/* ---------- escondidos (só com JS e movimento liberado) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  :global(.js) .card:not([data-active]) {
+    pointer-events: none;
+  }
+  :global(.js) .card:not([data-active]) .border rect {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 300ms var(--ease-exit);
+  }
+  :global(.js) .card:not([data-active]) .bg {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 300ms var(--ease-exit);
+  }
+  :global(.js) .card:not([data-active]) .content {
+    opacity: 0;
+    translate: 0 -12px;
+    transition:
+      opacity 300ms var(--ease-exit),
+      translate 300ms var(--ease-exit);
+  }
+  /* o que só precisa voltar ao começo: espera a saída terminar */
+  :global(.js) .card:not([data-active]) .reel {
+    translate: 0 0;
+    transition: translate 0s var(--E);
+  }
+  :global(.js) .card:not([data-active]) .ch {
+    translate: 0 100%;
+    transition: translate 0s var(--E);
+  }
+  :global(.js) .card:not([data-active]) .word {
+    translate: 0 .6em;
+    opacity: 0;
+    transition:
+      translate 0s var(--E),
+      opacity 0s var(--E);
+  }
+  :global(.js) .card:not([data-active]) .rule {
+    transform: scaleX(0);
+    transition: transform 0s var(--E);
+  }
+  :global(.js) .card:not([data-active]) .actions {
+    opacity: 0;
+    translate: 0 12px;
+    transition:
+      opacity 300ms var(--ease-exit),
+      translate 0s var(--E);
+  }
+  :global(.js) .card:not([data-active]) .bar,
+  :global(.js) .card:not([data-active]) .giant {
+    opacity: 0;
+    transition: opacity 300ms var(--ease-exit);
+  }
+}
+
+/* ---------- celular: na base, entram como uma folha; sem linhas e sem numeral ---------- */
+@media (max-width: 760px) {
+  .card,
+  .card[data-pos] {
+    left: var(--gutter);
+    right: var(--gutter);
+    top: auto;
+    bottom: 64px;
+    width: auto;
+    translate: none;
+    transition: translate 500ms var(--ease-enter) var(--E);
+  }
+  .sheet {
+    padding: var(--space-3);
+  }
+  .giant,
+  .callouts {
+    display: none;
+  }
+  .finalTitle {
+    font-size: var(--text-xl);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .card:not([data-active]) {
+      translate: 0 calc(100% + 72px);
+      transition: translate 300ms var(--ease-exit);
+    }
+  }
+}
+
+/* ---------- movimento reduzido: empilhados e estáticos ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cards {
+    position: relative;
+    inset: auto;
+    width: min(100% - 2 * var(--gutter), var(--container-wide));
+    margin: var(--space-5) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+    pointer-events: auto;
+  }
+  .card,
+  .card[data-pos] {
+    position: static;
+    width: auto;
+    translate: none;
+  }
+  .sheet {
+    translate: none;
+  }
+  .giant,
+  .callouts,
+  .bar {
+    display: none;
+  }
+}
