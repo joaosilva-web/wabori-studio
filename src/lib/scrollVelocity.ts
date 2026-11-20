@@ -25,6 +25,9 @@ const FRAME = 1000 / 60
 /** |v| (px/frame) que conta como intensidade máxima. */
 const V_MAX = 48
 const entries = new Set<Entry>()
+/** Quem só quer posição e direção do scroll (ex.: header que some ao descer). */
+type ScrollListener = (y: number, v: number) => void
+const scrollListeners = new Set<ScrollListener>()
 
 let rate = 1
 let target = 1
@@ -73,12 +76,13 @@ function tick(now: number) {
   }
 
   apply()
+  for (const fn of scrollListeners) fn(y, v)
   raf = settled ? 0 : requestAnimationFrame(tick)
   if (!raf) lastT = 0
 }
 
 function wake() {
-  if (raf || !hasVisible()) return
+  if (raf || (!hasVisible() && !scrollListeners.size)) return
   lastY = window.scrollY
   raf = requestAnimationFrame(tick)
 }
@@ -93,7 +97,7 @@ function listen() {
 }
 
 function unlisten() {
-  if (!listening || entries.size) return
+  if (!listening || entries.size || scrollListeners.size) return
   listening = false
   window.removeEventListener('scroll', wake)
   cancelAnimationFrame(raf)
@@ -133,5 +137,18 @@ export function registerLoop(animations: Animation[], onFrame?: (f: VelocityFram
       animations.forEach((a) => a.cancel())
       unlisten()
     },
+  }
+}
+
+/**
+ * Posição (scrollY) e velocidade (px/frame, positiva ao descer) a cada frame em que o scroll
+ * se move — no mesmo loop, lendo o Lenis quando ele existe. Devolve a função para sair.
+ */
+export function subscribeScroll(fn: ScrollListener) {
+  scrollListeners.add(fn)
+  listen()
+  return () => {
+    scrollListeners.delete(fn)
+    unlisten()
   }
 }
