@@ -1,3 +1,4 @@
+import { CompositionScene } from '../components/CompositionScene'
 import { Faq } from '../components/Faq'
 import { Kaze } from '../components/Kaze'
 import { Reveal } from '../components/Reveal'
@@ -8,7 +9,7 @@ import styles from './Process.module.css'
 
 const t = content.process
 
-/** As 5 etapas em detalhe, quanto tempo leva, as dúvidas e os cuidados pós-sessão. */
+/** As 5 etapas em detalhe (cena presa com o corpo-tela), quanto tempo leva, as dúvidas e os cuidados pós-sessão. */
 export function Process() {
   usePageMeta(t.seo)
 
@@ -30,22 +31,11 @@ export function Process() {
             </Reveal>
           </div>
 
-          <Reveal as="ol" stagger className={styles.steps}>
-            {t.steps.map((s, i) => (
-              <li key={s.title} className={styles.step} data-rv="">
-                <span className={styles.num} aria-hidden="true">
-                  {pad2(i + 1)}
-                </span>
-                <h2 className={styles.stepTitle}>
-                  <span className="sr-only">{i + 1}. </span>
-                  {s.title}
-                </h2>
-                <p className={styles.stepText}>{s.text}</p>
-              </li>
-            ))}
-          </Reveal>
         </div>
       </section>
+
+      {/* Cena 6: as 5 etapas e o corpo-tela que se constrói por camadas */}
+      <CompositionScene />
 
       <Kaze />
       <section className="section" data-tone="dark" aria-labelledby="tempo-titulo">

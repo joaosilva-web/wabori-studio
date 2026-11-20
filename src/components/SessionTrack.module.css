@@ -104,3 +104,38 @@
   position: static;
   height: auto;
 }
+
+/* ---------- arrastar ---------- */
+.rail {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rail img {
+  -webkit-user-drag: none;
+}
+
+/* ---------- contador grande, preso no canto ---------- */
+.bigCounter {
+  position: absolute;
+  right: max(var(--gutter), (100% - var(--container-wide)) / 2);
+  bottom: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  gap: .3em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: .9;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.bigNow {
+  font-size: clamp(4rem, 2rem + 6vw, 8.5rem);
+  color: var(--color-primary);
+}
+
+.bigTotal {
+  font-size: var(--text-xl);
+  color: var(--tone-muted);
+}

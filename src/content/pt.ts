@@ -178,6 +178,12 @@ export const pt = {
     title: ['Da conversa', 'à cicatrização.'],
     lead:
       'Um projeto de grande escala é feito em etapas, ao longo de meses. Você sabe o que esperar de cada uma antes de começar.',
+    /** Cena "Como uma composição nasce": o corpo-tela que se constrói por camadas. */
+    canvas: {
+      label: 'Como uma composição nasce',
+      alt: 'A composição completa em sombra e cor, construída camada por camada.',
+      progress: 'Etapa do processo',
+    },
     steps: [
       {
         title: 'Conversa',
@@ -324,11 +330,13 @@ export const pt = {
       name: '[A PREENCHER: nome do artista]',
       photo: '[FOTO: retrato do artista no ateliê]',
       photoAlt: '[A PREENCHER: descrição do retrato do artista]',
-      paragraphs: [
+      /** A história, em texto que se acende palavra por palavra (padrão do manifesto). */
+      story: [
         'Começou tatuando outros estilos. Com o tempo, o estudo da tatuagem japonesa tradicional tomou o lugar do resto, e hoje ele faz só esse estilo.',
         'Não tem linhagem formal nem nome de horishi, o nome de ofício que um mestre japonês dá ao aprendiz. O que sustenta o trabalho é o estudo contínuo e os projetos mostrados por inteiro, do esboço à pele cicatrizada.',
-        '[A PREENCHER: anos de trabalho, formação e outros fatos verificáveis]',
       ],
+      storyLabel: 'A trajetória',
+      paragraphs: ['[A PREENCHER: anos de trabalho, formação e outros fatos verificáveis]'],
     },
   },
 
