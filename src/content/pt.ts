@@ -11,7 +11,7 @@ const instagram = 'wabori.tattoo'
 
 export const pt = {
   site: {
-    name: 'Wabori',
+    name: 'Wabori Studio',
     nameJa: '和彫り',
     tagline: 'Tatuagem japonesa tradicional',
     city: 'Maringá',
@@ -22,14 +22,14 @@ export const pt = {
     appointmentOnly: 'Somente com hora marcada',
     privateStudio: 'Ateliê privado',
     domain: '[DOMÍNIO]',
-    defaultTitle: 'Wabori — Tatuagem japonesa tradicional em Maringá',
+    defaultTitle: 'Wabori Studio — Tatuagem japonesa tradicional em Maringá',
     defaultDescription:
       'Ateliê de tatuagem japonesa tradicional em Maringá, PR. Projetos de grande escala: braço fechado, costas, perna e bodysuit. Somente com hora marcada.',
   },
 
   nav: {
     label: 'Navegação principal',
-    home: 'Wabori, página inicial',
+    home: 'Wabori Studio, página inicial',
     items: [
       { section: 'projetos', label: 'Projetos' },
       { section: 'processo', label: 'Processo' },
@@ -78,26 +78,30 @@ export const pt = {
    * ------------------------------------------------------------- */
   home: {
     seo: {
-      title: 'Wabori — Tatuagem japonesa tradicional em Maringá',
+      title: 'Wabori Studio — Tatuagem japonesa tradicional em Maringá',
       description:
-        'O corpo inteiro como composição. Ateliê de tatuagem japonesa tradicional em Maringá, PR, com projetos de braço fechado, costas, perna e bodysuit.',
+        'Tatuagem japonesa, do contorno ao corpo inteiro. Ateliê de tatuagem tradicional em Maringá, PR, com projetos de braço fechado, costas, perna e bodysuit.',
     },
     cover: {
       /** Etiqueta no topo da cena (não é um projeto de cliente: só o processo). */
       label: 'Processo',
-      titleLabel: 'O corpo inteiro como composição.',
+      titleLabel: 'Tatuagem japonesa, do contorno ao corpo inteiro.',
+      tagline: 'Ateliê de tatuagem tradicional em Maringá, PR.',
       /**
        * O título se monta: cada fragmento chega de um lugar (from) e sai pelo mesmo lado.
        * left · below · above · right (letra por letra) · stamp (o ponto, carimbo em shu).
        */
       title: [
         [
-          { text: 'O corpo', from: 'left' },
-          { text: 'inteiro', from: 'below' },
+          { text: 'Tatuagem', from: 'left' },
+          { text: 'japonesa,', from: 'below' },
         ],
         [
-          { text: 'como', from: 'above' },
-          { text: 'composição', from: 'right' },
+          { text: 'do contorno', from: 'above' },
+          { text: 'ao corpo', from: 'left' },
+        ],
+        [
+          { text: 'inteiro', from: 'right' },
           { text: '.', from: 'stamp' },
         ],
       ] satisfies TitleFragment[][],
@@ -185,7 +189,7 @@ export const pt = {
    * ------------------------------------------------------------- */
   process: {
     seo: {
-      title: 'Processo — Wabori',
+      title: 'Processo — Wabori Studio',
       description:
         'Como funciona um projeto no Wabori: conversa, desenho, estimativa e sinal, sessões e cicatrização. Dúvidas frequentes e cuidados pós-sessão.',
     },
@@ -274,7 +278,7 @@ export const pt = {
    * ------------------------------------------------------------- */
   projects: {
     seo: {
-      title: 'Projetos — Wabori',
+      title: 'Projetos — Wabori Studio',
       description:
         'Projetos de tatuagem japonesa tradicional do Wabori: braço fechado, costas, perna e bodysuit, contados sessão por sessão.',
     },
@@ -314,7 +318,7 @@ export const pt = {
    * ------------------------------------------------------------- */
   about: {
     seo: {
-      title: 'Sobre — Wabori',
+      title: 'Sobre — Wabori Studio',
       description:
         'O Wabori é um ateliê privado de tatuagem japonesa tradicional em Maringá, PR. Atendimento somente com hora marcada, para clientes de qualquer cidade.',
     },
@@ -361,7 +365,7 @@ export const pt = {
    * ------------------------------------------------------------- */
   start: {
     seo: {
-      title: 'Iniciar um projeto — Wabori',
+      title: 'Iniciar um projeto — Wabori Studio',
       description:
         'Conte a área do corpo, a escala e a ideia do seu projeto de tatuagem japonesa tradicional. O orçamento é definido após avaliação.',
     },
@@ -421,12 +425,12 @@ export const pt = {
     navLabel: 'Páginas',
     contact: 'Contato',
     note: 'Ateliê privado em Maringá — PR. Somente com hora marcada.',
-    rights: (year: number) => `© ${year} Wabori`,
+    rights: (year: number) => `© ${year} Wabori Studio`,
     top: 'Voltar ao topo',
   },
 
   notFound: {
-    seo: { title: 'Página não encontrada — Wabori', description: 'Esta página não existe.' },
+    seo: { title: 'Página não encontrada — Wabori Studio', description: 'Esta página não existe.' },
     label: 'Erro 404',
     title: 'Esta página não existe.',
     back: 'Voltar à página inicial',

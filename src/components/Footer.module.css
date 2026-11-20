@@ -40,7 +40,7 @@
   gap: var(--space-3);
   min-height: 44px;
   padding-block: var(--space-1);
-  font: 900 var(--text-xl) / 1.2 var(--font-display);
+  font: 400 var(--text-xl) / 1.2 var(--font-display);
   text-decoration: none;
   background: linear-gradient(currentColor, currentColor) left bottom / 0 1.5px no-repeat;
   transition: background-size var(--dur-slow) var(--ease-ink);
@@ -82,12 +82,18 @@
   justify-content: center;
   gap: .25em;
   margin-top: var(--space-6);
-  font: 900 clamp(3rem, 1rem + 10vw, 11rem) / .9 var(--font-display);
+  font: 400 clamp(3rem, 1rem + 10vw, 11rem) / 1 var(--font-display);
   letter-spacing: .02em;
   white-space: nowrap;
 }
 
-/* WABORI sobe letra por letra, por trás de uma máscara */
+/* WABORI / STUDIO sobe letra por letra, por trás de uma máscara */
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .word {
   display: flex;
   overflow: clip;
@@ -95,7 +101,7 @@
 }
 
 .ch {
-  --k: clamp(0, (var(--rr) - .3 - var(--i) * .07) / .3, 1);
+  --k: clamp(0, (var(--rr) - .3 - var(--i) * .04) / .25, 1);
   display: block;
   translate: 0 calc((1 - var(--k)) * 110%);
 }

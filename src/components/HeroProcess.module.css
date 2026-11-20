@@ -103,7 +103,7 @@
   left: max(var(--gutter), (100% - var(--container-wide)) / 2);
   bottom: 18svh;
   font-size: var(--text-hero);
-  line-height: .98;
+  line-height: 1.05;
   color: var(--color-text);
 }
 
@@ -201,6 +201,30 @@
   animation: stampRing calc(500ms * var(--T)) var(--ease-enter) calc(var(--t0) + 1580ms * var(--T)) both;
 }
 
+/* tagline abaixo do título */
+.tagline {
+  position: absolute;
+  left: max(var(--gutter), (100% - var(--container-wide)) / 2);
+  bottom: calc(18svh - 2.4em);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0;
+  animation: fadeIn calc(600ms * var(--T, 1)) var(--ease) calc(1800ms * var(--T, 1)) forwards;
+  translate: 0 calc(clamp(0, (var(--p, 0) - .08) / .08, 1) * -60px);
+}
+
+:global(html[data-visit='return']) .tagline {
+  --T: .6;
+}
+
+:global(html.intro:not([data-intro='out'])) .tagline {
+  animation-play-state: paused;
+}
+
 /* enquanto a abertura cobre a página, o título espera */
 :global(html.intro:not([data-intro='out'])) .title *,
 :global(html.intro:not([data-intro='out'])) .title *::after {
@@ -256,6 +280,12 @@
   100% {
     opacity: 0;
     transform: scale(3.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 }
 

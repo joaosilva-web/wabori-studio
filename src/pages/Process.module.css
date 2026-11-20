@@ -46,7 +46,7 @@
 }
 
 .durationValue {
-  font: 900 var(--text-xl) / 1.2 var(--font-display);
+  font: 400 var(--text-xl) / 1.2 var(--font-display);
 }
 
 .durationDetail {

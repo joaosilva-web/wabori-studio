@@ -13,7 +13,7 @@ const links: { section: Exclude<SectionId, 'atelie'>; label: string }[] = [
   { section: 'iniciar', label: nav.cta },
 ]
 
-const WORD = 'WABORI'
+const WORDS = ['WABORI', 'STUDIO'] as const
 
 /**
  * Cena 8 — rodapé revelado. O rodapé em shu fica preso embaixo (sticky, bottom 0, abaixo
@@ -76,7 +76,7 @@ export function Footer() {
     <footer ref={ref} className={styles.footer} data-tone="primary" aria-label={footer.label}>
       <div className="container-wide">
         <div className={styles.meta}>
-          <span>Wabori® — {site.tagline}</span>
+          <span>Wabori Studio® — {site.tagline}</span>
           <span>{site.place}</span>
         </div>
 
@@ -118,10 +118,17 @@ export function Footer() {
           </g>
           <circle className={styles.ring} cx="60" cy="60" r="53" pathLength={1} transform="rotate(-90 60 60)" />
         </svg>
-        <span className={styles.word}>
-          {[...WORD].map((ch, i) => (
-            <span key={i} className={styles.ch} style={{ '--i': i } as CSSProperties}>
-              {ch}
+        <span className={styles.words}>
+          {WORDS.map((word, wi) => (
+            <span key={wi} className={styles.word}>
+              {[...word].map((ch, ci) => {
+                const i = wi === 0 ? ci : WORDS[0].length + ci
+                return (
+                  <span key={ci} className={styles.ch} style={{ '--i': i } as CSSProperties}>
+                    {ch}
+                  </span>
+                )
+              })}
             </span>
           ))}
         </span>

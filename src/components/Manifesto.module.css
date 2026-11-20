@@ -93,7 +93,7 @@
 }
 
 .text {
-  font: 900 min(var(--text-2xl), 4.4svh) / 1.22 var(--font-display);
+  font: 400 min(var(--text-2xl), 4.4svh) / 1.22 var(--font-display);
   text-wrap: pretty;
 }
 

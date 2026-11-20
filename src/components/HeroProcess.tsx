@@ -278,6 +278,8 @@ export function HeroProcess() {
           ))}
         </h1>
 
+        <p className={styles.tagline} aria-hidden="true">{t.tagline}</p>
+
         <HeroCards ref={cardsRef} step={step} onFinalFocus={onFinalFocus} />
 
         <nav className={styles.ruler} aria-label={t.ruler.label} style={{ '--marks': MARKS.length } as CSSProperties}>

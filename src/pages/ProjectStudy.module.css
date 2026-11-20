@@ -113,7 +113,7 @@
 }
 
 .meaning dt {
-  font: 900 var(--text-xl) / 1.2 var(--font-display);
+  font: 400 var(--text-xl) / 1.2 var(--font-display);
 }
 
 .meaning dd {
@@ -166,7 +166,7 @@
 }
 
 .pagerTitle {
-  font: 900 var(--text-xl) / 1.2 var(--font-display);
+  font: 400 var(--text-xl) / 1.2 var(--font-display);
 }
 
 @media (max-width: 900px) {

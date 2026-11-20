@@ -9,7 +9,7 @@ import styles from './Header.module.css'
 
 const nav = content.nav
 
-const WORD = 'WABORI'
+const WORD = 'WABORI STUDIO'
 /** Distância (px) descendo antes de esconder. */
 const HIDE_AFTER = 8
 
@@ -78,9 +78,9 @@ export function Header() {
           </svg>
           <span className={styles.word}>
             {[...WORD].map((ch, i) => (
-              <span key={i} className={styles.letterMask}>
+              <span key={i} className={ch === ' ' ? styles.wordGap : styles.letterMask}>
                 <span className={styles.letter} style={{ '--i': i } as CSSProperties}>
-                  {ch}
+                  {ch === ' ' ? '\u00A0' : ch}
                 </span>
               </span>
             ))}

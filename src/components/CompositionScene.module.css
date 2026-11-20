@@ -79,7 +79,7 @@
 }
 
 .num {
-  font: 900 var(--text-2xl) / 1 var(--font-display);
+  font: 400 var(--text-2xl) / 1 var(--font-display);
   font-variant-numeric: tabular-nums;
 }
 

@@ -105,7 +105,7 @@
 /* ---------- número em odômetro ---------- */
 .num {
   display: inline-flex;
-  font: 900 var(--text-xl) / 1 var(--font-display);
+  font: 400 var(--text-xl) / 1 var(--font-display);
   color: var(--color-primary);
   font-variant-numeric: tabular-nums;
 }
@@ -168,7 +168,7 @@
   z-index: -1;
   top: -.42em;
   left: -.12em;
-  font: 900 clamp(9rem, 6rem + 6vw, 15rem) / 1 var(--font-display);
+  font: 400 clamp(9rem, 6rem + 6vw, 15rem) / 1 var(--font-display);
   color: transparent;
   -webkit-text-stroke: 1px rgb(53 58 71 / .25);
   pointer-events: none;
@@ -185,7 +185,7 @@
 
 /* ---------- chamada final ---------- */
 .finalTitle {
-  font: 900 var(--text-2xl) / 1.1 var(--font-display);
+  font: 400 var(--text-2xl) / 1.1 var(--font-display);
   /* reserva as duas linhas: a troca da fonte não empurra os botões (CLS 0) */
   min-height: 2.2em;
 }

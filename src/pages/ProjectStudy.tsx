@@ -38,7 +38,7 @@ export function ProjectStudy() {
 
 function Study({ project: p }: { project: Project }) {
   usePageMeta({
-    title: `${p.title} — Projetos — Wabori`,
+    title: `${p.title} — Projetos — Wabori Studio`,
     description: p.summary,
     image: p.photos[0]?.image?.src,
   })

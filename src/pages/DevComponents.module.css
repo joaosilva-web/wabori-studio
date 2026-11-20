@@ -51,7 +51,7 @@
   width: 120px;
   aspect-ratio: 1;
   border-top: 2px solid var(--tone-line);
-  font: 900 var(--text-xl) / 1 var(--font-display);
+  font: 400 var(--text-xl) / 1 var(--font-display);
 }
 
 .note {
